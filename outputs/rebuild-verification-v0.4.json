@@ -1,0 +1,13 @@
+{
+  "sha256": "89aea977464a8cd5f28d9ca1b83a7329d691b437f52444a06729d5588cda8291",
+  "rom_bytes": 524288,
+  "checks": {
+    "full_regenerated_build_identical": true,
+    "cartridge_exactly_512kib": true,
+    "msx_header": true,
+    "manifest_hash_matches": true,
+    "course_has_1024_profiles": true,
+    "remaining_rom_padding_ff": true
+  },
+  "native_runtime_test": false
+}

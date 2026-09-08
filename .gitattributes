@@ -1,0 +1,5 @@
+# Preserve exact source/fixture bytes used by reproducibility checks.
+* -text
+*.md text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf

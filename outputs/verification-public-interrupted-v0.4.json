@@ -1,0 +1,5709 @@
+{
+  "rom": {
+    "title": "MAGICAL HAPPY RALLY",
+    "version": "0.4",
+    "working_title": true,
+    "file": "MAGICAL_HAPPY_RALLY-v0.4.rom",
+    "machine": "MSX turbo R + V9990",
+    "mapper": "ASCII8",
+    "rom_bytes": 524288,
+    "allocated_bytes": 491520,
+    "free_bytes": 32768,
+    "runtime_bytes": 20746,
+    "runtime_address": "8000-DFFF",
+    "data_address": "E000-EFFF",
+    "stack_top": "F300",
+    "entry": "0xa9e7",
+    "vram": {
+      "bytes": 65536,
+      "rom_offset": 32768,
+      "first_bank": 4,
+      "last_bank": 11,
+      "sha256": "9db7baf791841057df6aadbe83fa34b5505cd96fcfeccca245dc484cc02d7c97"
+    },
+    "course": {
+      "bytes": 262144,
+      "rom_offset": 98304,
+      "first_bank": 12,
+      "record_bytes": 256,
+      "records": 1024,
+      "road_bytes": 128,
+      "object_bytes": 64,
+      "event_projection_bytes": 64,
+      "sha256": "88298ca1d108899f67b8cb2bf9b1315d072d0d7ad9111708a3190453b0c0b805"
+    },
+    "scenery": {
+      "bytes": 131072,
+      "rom_offset": 360448,
+      "first_bank": 44,
+      "last_bank": 59,
+      "vram_byte_offset": 196608,
+      "sha256": "dab4c80cc9b9d0fe35552c390d459ed357774042c1c89b5e405f29b96e4575a4"
+    },
+    "sha256": "89aea977464a8cd5f28d9ca1b83a7329d691b437f52444a06729d5588cda8291",
+    "sources": {
+      "src/assets.h": "b47674fb6d5f08a34fc5934710fada45f9d5b740fa8dde49907966976af2c9a0",
+      "src/boot.asm": "920e386ac673b013012e26184a3fadd976de884f925b9dd01b7a46c33f206ce3",
+      "src/course.h": "2d6089a793b59aaa26ad316cbf08766a60f0c820b8ff66a78d9a4d6e5b9bc2b9",
+      "src/encounters.h": "db0d6608c55725c333c3939fd991a0790d4a4032e7938043a8253bc573221a59",
+      "src/game.c": "d5230edc8a8514820019346d6e67cacf14ea77812c0dce8b9c5ce29a75b9576d",
+      "src/hardware.c": "f6f037cccf752cdfe2f3194d16aa389f914c545b66ae6e69680129b41c66ad5c",
+      "src/hardware.h": "ad12bd3a4216e414cca36f0c78603de91e71925f031f854b6540e054c0a61905",
+      "src/lap_clock.h": "9d9f2574580e161c264fa24209af0bb5217a07826f99d7752362cbf43701fcb0",
+      "src/palette.h": "20b3b190d72a1c2070461bf2e8e3c4dd77d72541b9c24d9d8a20ec6fbc25f67c",
+      "src/scenery.h": "f83a1564838424b40ba824a7e165723ab3f07f0050b736644da1400529ab1b6d",
+      "tools/build.py": "be0e556fe5095234caf427920e6e5305118e0fbc29a7342053de74aca0ad36d0",
+      "tools/generate_assets.py": "8f084a69e7ac876aa14a4eb18890c9b9af6a1c1cb80f9ad9d23d225ab042069e",
+      "tools/generate_course.py": "bd266319ebc26b0c83ea475e5178cddb88e0e616fac0e72e9ef1f8b876758f01"
+    }
+  },
+  "machine": "Panasonic_FS-A1ST",
+  "extension": "gfx9000",
+  "physical_hardware_tested": false,
+  "browser_mock_used": false,
+  "full_course_input_only_playthrough": false,
+  "baseline": "outputs/baseline-v0.3",
+  "scenario_seeding": "All explicitly named scenario/frame/visual tests seed game RAM. The final full lap starts from hardware reset and sends keyboard input only; event counters are never written during that lap.",
+  "results": [
+    {
+      "name": "v0.3-baseline-files-preserved",
+      "passed": true,
+      "files": 2,
+      "mismatches": []
+    },
+    {
+      "name": "base-driving-road-and-background-functions-preserved",
+      "passed": true,
+      "functions": [
+        "update",
+        "camera_shift",
+        "draw_sky",
+        "draw_road",
+        "frame_done"
+      ],
+      "changed": []
+    },
+    {
+      "name": "approved-course-copy-is-exact-256-byte-LDIR-only",
+      "passed": true,
+      "load_course_other_logic_preserved": true,
+      "helper_exact": true,
+      "approved_change": "SDCC call1 HL source; DE=_profile; BC=256; LDIR; RET. No source bytes, geometry, bank selection or input changes."
+    },
+    {
+      "name": "v0.3-hardware-palette-near-scenery-and-verifiers-preserved",
+      "passed": true,
+      "files": [
+        "src/hardware.c",
+        "src/hardware.h",
+        "src/boot.asm",
+        "src/palette.h",
+        "src/scenery.h",
+        "assets/scenery.bin",
+        "tools/verify_drive.py",
+        "tools/compare_speed_car.py"
+      ],
+      "changed": []
+    },
+    {
+      "name": "all-1024-road-and-existing-scenery-profiles-preserved",
+      "passed": true,
+      "profile_bytes_preserved": 192,
+      "new_projection_bytes": 64,
+      "changed_profiles": []
+    },
+    {
+      "name": "v0.3-car-font-sky-and-existing-sprites-preserved",
+      "passed": true,
+      "added_tables": {
+        "traffic_car": [
+          [
+            0,
+            855,
+            72,
+            47
+          ],
+          [
+            74,
+            855,
+            64,
+            42
+          ],
+          [
+            140,
+            855,
+            56,
+            37
+          ],
+          [
+            198,
+            855,
+            48,
+            31
+          ],
+          [
+            0,
+            904,
+            40,
+            26
+          ],
+          [
+            42,
+            904,
+            34,
+            22
+          ],
+          [
+            78,
+            904,
+            28,
+            18
+          ],
+          [
+            108,
+            904,
+            24,
+            16
+          ],
+          [
+            134,
+            904,
+            20,
+            13
+          ],
+          [
+            156,
+            904,
+            16,
+            10
+          ],
+          [
+            174,
+            904,
+            14,
+            9
+          ],
+          [
+            190,
+            904,
+            12,
+            8
+          ],
+          [
+            204,
+            904,
+            10,
+            7
+          ],
+          [
+            216,
+            904,
+            8,
+            5
+          ],
+          [
+            226,
+            904,
+            6,
+            4
+          ],
+          [
+            234,
+            904,
+            4,
+            3
+          ]
+        ],
+        "ufo": [
+          [
+            0,
+            932,
+            52,
+            20
+          ]
+        ],
+        "cow": [
+          [
+            54,
+            932,
+            20,
+            14
+          ]
+        ],
+        "car_shadow": [
+          [
+            76,
+            932,
+            56,
+            6
+          ]
+        ]
+      },
+      "changed_bytes_outside_new_sprites": 0,
+      "old_sprite_overlaps": []
+    },
+    {
+      "name": "enlarged-v0.3-car-size-retained",
+      "passed": true,
+      "size": [
+        56,
+        38
+      ],
+      "poses": 3
+    },
+    {
+      "name": "512KiB-AB-cartridge-and-hash",
+      "passed": true,
+      "bytes": 524288,
+      "sha256": "89aea977464a8cd5f28d9ca1b83a7329d691b437f52444a06729d5588cda8291"
+    },
+    {
+      "name": "ROM-vram-bank-payload-matches-assets",
+      "passed": true,
+      "bytes": 65536,
+      "rom_offset": 32768,
+      "sha256": "9db7baf791841057df6aadbe83fa34b5505cd96fcfeccca245dc484cc02d7c97"
+    },
+    {
+      "name": "ROM-course-bank-payload-matches-assets",
+      "passed": true,
+      "bytes": 262144,
+      "rom_offset": 98304,
+      "sha256": "88298ca1d108899f67b8cb2bf9b1315d072d0d7ad9111708a3190453b0c0b805"
+    },
+    {
+      "name": "ROM-scenery-bank-payload-matches-assets",
+      "passed": true,
+      "bytes": 131072,
+      "rom_offset": 360448,
+      "sha256": "dab4c80cc9b9d0fe35552c390d459ed357774042c1c89b5e405f29b96e4575a4"
+    },
+    {
+      "name": "loaded-cartridge-identity-and-ASCII8-mapper",
+      "passed": true,
+      "emulator_sha1": "723d5cdbcad2fda8565c5bf6610843e64696a2b3",
+      "file_sha1": "723d5cdbcad2fda8565c5bf6610843e64696a2b3",
+      "mapper": "ASCII8"
+    },
+    {
+      "name": "target-machine",
+      "passed": true
+    },
+    {
+      "name": "V9990-B1-4bpp",
+      "passed": true,
+      "register_6": 129,
+      "register_13": 0
+    },
+    {
+      "name": "R800-DRAM-active",
+      "passed": true,
+      "register_6": 0
+    },
+    {
+      "name": "native-scenery-atlas-upload",
+      "passed": true,
+      "bytes": 65536,
+      "sha256": "9db7baf791841057df6aadbe83fa34b5505cd96fcfeccca245dc484cc02d7c97"
+    },
+    {
+      "name": "native-extra-scenery-upload",
+      "passed": true,
+      "logical_vram_start": "0x30000",
+      "bytes": 131072,
+      "chunk_bytes": 32768,
+      "sha256": "dab4c80cc9b9d0fe35552c390d459ed357774042c1c89b5e405f29b96e4575a4"
+    },
+    {
+      "name": "startup-title",
+      "passed": true,
+      "state": {
+        "ready": 165,
+        "mode": 0,
+        "frame_counter": 26,
+        "distance": 0,
+        "speed": 0,
+        "player_x": 0,
+        "keys": 0,
+        "course_phase": 0,
+        "road_center": 1,
+        "hill": 0,
+        "offroad": 0,
+        "laps": 0,
+        "course_curve": 7,
+        "section": 0,
+        "distance_fraction": 0,
+        "passes": 0,
+        "hits": 0,
+        "ufo_dodges": 0,
+        "ufo_catches": 0,
+        "ufo_state": 0,
+        "ufo_timer": 0,
+        "ufo_lane": 1,
+        "ufo_lap": 65535,
+        "ufo_caught": 0,
+        "recovery_timer": 0,
+        "lift_timer": 0,
+        "event_tick": 0,
+        "traffic_z0": 220,
+        "traffic_lane0": -1,
+        "traffic_tag0": 0,
+        "traffic_z1": 720,
+        "traffic_lane1": 1,
+        "traffic_tag1": 0,
+        "traffic_z2": 1250,
+        "traffic_lane2": -1,
+        "traffic_tag2": 0,
+        "lap_current_tenths": 0,
+        "lap_last_tenths": 0,
+        "lap_best_tenths": 0,
+        "lap_last_valid": 0,
+        "lap_best_valid": 0
+      }
+    },
+    {
+      "name": "space-starts-drive",
+      "passed": true,
+      "mode": 1
+    },
+    {
+      "name": "space-accelerates-and-travels",
+      "passed": true,
+      "before": {
+        "speed": 7,
+        "distance": 5
+      },
+      "after": {
+        "speed": 98,
+        "distance": 120
+      }
+    },
+    {
+      "name": "left-right-steering",
+      "passed": true,
+      "start": 0,
+      "left": -16,
+      "right": 8
+    },
+    {
+      "name": "release-accelerator-coasts-down",
+      "passed": true,
+      "before": 128,
+      "after": 105
+    },
+    {
+      "name": "x-brakes-to-stable-stop",
+      "passed": true,
+      "state": {
+        "speed": 0,
+        "distance": 422
+      }
+    },
+    {
+      "name": "up-restarts-stopped-car",
+      "passed": true,
+      "state": {
+        "speed": 47,
+        "distance": 459
+      }
+    },
+    {
+      "name": "escape-pauses",
+      "passed": true
+    },
+    {
+      "name": "pause-freezes-travel-and-steering",
+      "passed": true,
+      "before": {
+        "distance": 488,
+        "distance_fraction": 7,
+        "speed": 66,
+        "player_x": 11,
+        "laps": 0
+      },
+      "after": {
+        "distance": 488,
+        "distance_fraction": 7,
+        "speed": 66,
+        "player_x": 11,
+        "laps": 0
+      }
+    },
+    {
+      "name": "escape-resumes-drive",
+      "passed": true
+    },
+    {
+      "name": "roadside-slows-car-without-failure",
+      "passed": true,
+      "road_speed": 126,
+      "grass": {
+        "speed": 82,
+        "offroad": 1,
+        "player_x": 113
+      }
+    },
+    {
+      "name": "steer-back-and-recover-speed",
+      "passed": true,
+      "recovered": {
+        "speed": 128,
+        "offroad": 0,
+        "player_x": -1,
+        "mode": 1
+      }
+    },
+    {
+      "name": "down-brakes-with-accelerator-held",
+      "passed": true,
+      "before": 57,
+      "after": 0
+    },
+    {
+      "name": "v0.3-six-unit-top-speed-preserved",
+      "passed": true,
+      "distance_steps": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "seeded": true
+    },
+    {
+      "name": "exact-six-unit-course-wrap",
+      "passed": true,
+      "state": {
+        "distance": 5,
+        "distance_fraction": 31,
+        "speed": 128,
+        "laps": 1
+      },
+      "seeded": true
+    },
+    {
+      "name": "stopped-player-stays-put-while-ordinary-traffic-moves",
+      "passed": true,
+      "state": {
+        "distance": 1000,
+        "distance_fraction": 31,
+        "speed": 0,
+        "traffic_z0": 2515
+      },
+      "seeded": true
+    },
+    {
+      "name": "native-course-RAM-copy-all-32-bank-boundaries-and-wrap",
+      "passed": true,
+      "records": [
+        {
+          "phase": 0,
+          "rom_bank": 12,
+          "matched": true,
+          "sha256": "20bd7c195cbdbd1771e7e060a816e856fea98846342cc8946b57d88d8aa4dd85"
+        },
+        {
+          "phase": 31,
+          "rom_bank": 12,
+          "matched": true,
+          "sha256": "62ec2d8029a83488d8171e61bc69f1ef74b0af2e8669b4e3f2b1bd1ec6eb2b37"
+        },
+        {
+          "phase": 32,
+          "rom_bank": 13,
+          "matched": true,
+          "sha256": "7fae34fd340600f253731c042445b2df48e66cae3db4607183d65d371a437c07"
+        },
+        {
+          "phase": 63,
+          "rom_bank": 13,
+          "matched": true,
+          "sha256": "b0c5ccd1ebf773f9f5bb61d75daf5f79d6252367a4ffcc4b2e5b42197e27fcb9"
+        },
+        {
+          "phase": 64,
+          "rom_bank": 14,
+          "matched": true,
+          "sha256": "b1e08a64111920ea446798affb156dbf0b08410c791bb2a2929b83282519b5de"
+        },
+        {
+          "phase": 95,
+          "rom_bank": 14,
+          "matched": true,
+          "sha256": "fd165d96b16a12cca9463910109602e405a4ffd382f5de22c2f3089c103ea0b9"
+        },
+        {
+          "phase": 96,
+          "rom_bank": 15,
+          "matched": true,
+          "sha256": "2a3e0501350dd2744ed649aba59207940aa7f0bf6e0f06aedae13dff9593e27d"
+        },
+        {
+          "phase": 127,
+          "rom_bank": 15,
+          "matched": true,
+          "sha256": "da890916890ec03764fffef612e0abb55dda5b0b98c84c9f8c522207854fee81"
+        },
+        {
+          "phase": 128,
+          "rom_bank": 16,
+          "matched": true,
+          "sha256": "211c005a5eaf8c96680bb478b78fa8bb37bd91c060e48996357b41166ce06744"
+        },
+        {
+          "phase": 159,
+          "rom_bank": 16,
+          "matched": true,
+          "sha256": "25d88130a5335b07ad31231853e41fe7711cfa3f19f058964a7a043b053634bf"
+        },
+        {
+          "phase": 160,
+          "rom_bank": 17,
+          "matched": true,
+          "sha256": "ce7d1e92b52d87460f2da6b48b8ae434c1575fd1cff9e099c19e158b3a0682b2"
+        },
+        {
+          "phase": 191,
+          "rom_bank": 17,
+          "matched": true,
+          "sha256": "e8076408f40f7de9cbdf53687e19a3d4c0eb37d25f3031f4d4e88d99fae2bd19"
+        },
+        {
+          "phase": 192,
+          "rom_bank": 18,
+          "matched": true,
+          "sha256": "55ff9b6d184de61a1ea066cee14dd6a2e2892176bfe30cc60a289d894ad5eb5c"
+        },
+        {
+          "phase": 223,
+          "rom_bank": 18,
+          "matched": true,
+          "sha256": "d52e0ccac9bb71b93e7b959c74e8b78b3582d327965ee383f09cf576ab69bb6c"
+        },
+        {
+          "phase": 224,
+          "rom_bank": 19,
+          "matched": true,
+          "sha256": "880f9681177c272fcde6b6a6b23e3494b12c500afdcdf0b62b7c27fce0ad4c7d"
+        },
+        {
+          "phase": 255,
+          "rom_bank": 19,
+          "matched": true,
+          "sha256": "f63a8139299f1861998f1655bf9f55d4415a3e758ded77365d813cd563a90477"
+        },
+        {
+          "phase": 256,
+          "rom_bank": 20,
+          "matched": true,
+          "sha256": "1c5c89ba788de0051f671ed034a617c8fea04ba6924e268782e41794bf7c6a5c"
+        },
+        {
+          "phase": 287,
+          "rom_bank": 20,
+          "matched": true,
+          "sha256": "4d69a903f5e88eaf63df043bc9bfa8eccdcaff8cb80c517df156ad6bde0cde35"
+        },
+        {
+          "phase": 288,
+          "rom_bank": 21,
+          "matched": true,
+          "sha256": "bf06b4258bf8ac482bb84e50b0396e801101ef4854e00045a4820e5dde0ace1f"
+        },
+        {
+          "phase": 319,
+          "rom_bank": 21,
+          "matched": true,
+          "sha256": "33df926290a6e012f6dd73bf58193adad30d36cf5229c5e7c0938c535e13dd37"
+        },
+        {
+          "phase": 320,
+          "rom_bank": 22,
+          "matched": true,
+          "sha256": "2dec1638617553f8d5de2ab5c33fa4b70faa29b2d7d0bb6ce7b9f2890a90c791"
+        },
+        {
+          "phase": 351,
+          "rom_bank": 22,
+          "matched": true,
+          "sha256": "c5f4e7cb41b805a6a1d6eb94020fa2d7cc8e0002c0f0177085550be872fb5a63"
+        },
+        {
+          "phase": 352,
+          "rom_bank": 23,
+          "matched": true,
+          "sha256": "bb26782de5d09da5399000ae428df62a77e8b442f1eb212a4d624ef1a7e22a5a"
+        },
+        {
+          "phase": 383,
+          "rom_bank": 23,
+          "matched": true,
+          "sha256": "d3b109af0909834ee4d5f1fd62a6cec6ac6a9bde9515b8c3e4cfcac527ffb687"
+        },
+        {
+          "phase": 384,
+          "rom_bank": 24,
+          "matched": true,
+          "sha256": "eba1ceedf8912616445ffed44ef6548c22e9db9d00838a18ff38a4e748bbecaa"
+        },
+        {
+          "phase": 415,
+          "rom_bank": 24,
+          "matched": true,
+          "sha256": "58ddcbabb974404f53ae600fea8399a65ca10222ccd2793f095bfae7573b38f2"
+        },
+        {
+          "phase": 416,
+          "rom_bank": 25,
+          "matched": true,
+          "sha256": "3faa208441e8a57d8fb18ed80ef5e5655ade70dd6b9a0bacf21d2cf591127a72"
+        },
+        {
+          "phase": 447,
+          "rom_bank": 25,
+          "matched": true,
+          "sha256": "6b80508dbe3ebe5146568cabfe83ccff90f4457c4426af06787be536236b7ec8"
+        },
+        {
+          "phase": 448,
+          "rom_bank": 26,
+          "matched": true,
+          "sha256": "4d46b110e467ec1197fc6e560b59d1b8ce6c63af0469cff79fa8e05039cd9624"
+        },
+        {
+          "phase": 479,
+          "rom_bank": 26,
+          "matched": true,
+          "sha256": "45edf05e301c9a1e3cb9eccd1c6f55b9c57f8d6e534e447f13fddd730f1198f8"
+        },
+        {
+          "phase": 480,
+          "rom_bank": 27,
+          "matched": true,
+          "sha256": "56546122e581f05183cc6a775874862f3804ee7b236664a6ef8fc2125053ec6f"
+        },
+        {
+          "phase": 511,
+          "rom_bank": 27,
+          "matched": true,
+          "sha256": "ea18a2a604c03971c3b1d4f0d66d189f342dad3b9154999888bfc65c5e990c45"
+        },
+        {
+          "phase": 512,
+          "rom_bank": 28,
+          "matched": true,
+          "sha256": "8a4bc48008b4e0cc6ddb7c8daa441c4e481dd86e5bfd49163ef2fa7dca8350ed"
+        },
+        {
+          "phase": 543,
+          "rom_bank": 28,
+          "matched": true,
+          "sha256": "c20f2024277bad07c910ee34ac068df1eaf000bf419775ef05556ad0cdecfa3c"
+        },
+        {
+          "phase": 544,
+          "rom_bank": 29,
+          "matched": true,
+          "sha256": "4274d01afa44ae323bc12299310d57e45618acc509bd93a1122ad2c21f8148ca"
+        },
+        {
+          "phase": 575,
+          "rom_bank": 29,
+          "matched": true,
+          "sha256": "35e9f8a785124051ab5ffd6531904fe857066df8f19895ba7c17df1ced84ca21"
+        },
+        {
+          "phase": 576,
+          "rom_bank": 30,
+          "matched": true,
+          "sha256": "fdcaee1fe84a0d28e02a14d843477f0832a3e4cd28f44b427715623fd5fa1c9c"
+        },
+        {
+          "phase": 607,
+          "rom_bank": 30,
+          "matched": true,
+          "sha256": "eb62f7d080319e51bb515a15f04a79fb2e30342c6d9e8911795b1aeee75b7e34"
+        },
+        {
+          "phase": 608,
+          "rom_bank": 31,
+          "matched": true,
+          "sha256": "15b74a77ad76916db532354f8669b77ee2395b13ffb2916117677c7ba8ef8daa"
+        },
+        {
+          "phase": 639,
+          "rom_bank": 31,
+          "matched": true,
+          "sha256": "392aade4cfc2177374e1fc30fffe55e71b3c639660d5e2ccc47c7498137776d7"
+        },
+        {
+          "phase": 640,
+          "rom_bank": 32,
+          "matched": true,
+          "sha256": "db9ea1799658e7ca992d1b8f064df3021a32a8fedf09c9621d824dc418577ab8"
+        },
+        {
+          "phase": 671,
+          "rom_bank": 32,
+          "matched": true,
+          "sha256": "97be31459d990a21836b508c8da8aa408cc4f6a8567796c12bf6d265cb9c0739"
+        },
+        {
+          "phase": 672,
+          "rom_bank": 33,
+          "matched": true,
+          "sha256": "a13b4c4b926f5870e418ac1615d317c23f969ccfe07b5793e07b3f4159cca282"
+        },
+        {
+          "phase": 703,
+          "rom_bank": 33,
+          "matched": true,
+          "sha256": "0b617559e31768e4dc9ba60235bcb5214acf6569f9b759983a3e58c6e7c342e2"
+        },
+        {
+          "phase": 704,
+          "rom_bank": 34,
+          "matched": true,
+          "sha256": "b4b0c89d8e6c030d087cbfdfe876ffe3489ee141fa4124805fb6f964a52c5c20"
+        },
+        {
+          "phase": 735,
+          "rom_bank": 34,
+          "matched": true,
+          "sha256": "ca07c5fcfc3479abcb54e5de4c6bfdf8345621a7c2019e4ffd053261f5e55640"
+        },
+        {
+          "phase": 736,
+          "rom_bank": 35,
+          "matched": true,
+          "sha256": "2bf48019e9e60c8f6ea8260bec6a6ace3dbbb7ca66420b66e6d2bf4d1e688d18"
+        },
+        {
+          "phase": 767,
+          "rom_bank": 35,
+          "matched": true,
+          "sha256": "758c161b64c400acb97aa9dba15b37d96794849f1dbad8adf7e65859e291d2f1"
+        },
+        {
+          "phase": 768,
+          "rom_bank": 36,
+          "matched": true,
+          "sha256": "971b6d7a94967394dbe69799420a003cc4e7827d19e810f049016b4ec63ee6b0"
+        },
+        {
+          "phase": 799,
+          "rom_bank": 36,
+          "matched": true,
+          "sha256": "da43435c280286602329c6025f404f4a703a0a099915a2dc387168dd6ec75d66"
+        },
+        {
+          "phase": 800,
+          "rom_bank": 37,
+          "matched": true,
+          "sha256": "a8859e327b4e5eff689c8327cb8e1e9523f80f849d521a3ca29d7da66375cbb8"
+        },
+        {
+          "phase": 831,
+          "rom_bank": 37,
+          "matched": true,
+          "sha256": "1eaecd3a25a0479ba81bf46985641890ae913257a1368ebd0b21e61231b98811"
+        },
+        {
+          "phase": 832,
+          "rom_bank": 38,
+          "matched": true,
+          "sha256": "c0a090f5de160949f5063181601be39d293a40e501f32b885e037943437a85f7"
+        },
+        {
+          "phase": 863,
+          "rom_bank": 38,
+          "matched": true,
+          "sha256": "bc73e3c66480c524931a4d84f0e114b33b11f265e7f414f4c846ae1954d3e655"
+        },
+        {
+          "phase": 864,
+          "rom_bank": 39,
+          "matched": true,
+          "sha256": "e47426828617307ce996360ebef3fa1c449b43bb8fbed651266fd9cf8de916c8"
+        },
+        {
+          "phase": 895,
+          "rom_bank": 39,
+          "matched": true,
+          "sha256": "d4d572ea64c5eb35c1c78adfd0b0c89d08b05a81658a6ddb46995268d9c8bc6b"
+        },
+        {
+          "phase": 896,
+          "rom_bank": 40,
+          "matched": true,
+          "sha256": "671a4327af0227ede6fd7cf37ab0fd0035f7af50e27ba32c701d424af14b5203"
+        },
+        {
+          "phase": 927,
+          "rom_bank": 40,
+          "matched": true,
+          "sha256": "7efbdd99fedd24edb61d5436dd27fd776c7bc4d10dbf2b48f897559044b56862"
+        },
+        {
+          "phase": 928,
+          "rom_bank": 41,
+          "matched": true,
+          "sha256": "895abfa2e2271ab2573c5d872a9a8d13c074800be69ecde2835d558211adb3e7"
+        },
+        {
+          "phase": 959,
+          "rom_bank": 41,
+          "matched": true,
+          "sha256": "21129e03b7013ed2f3725721712884b26f3aef96ec22ea25570bdf3db77ab852"
+        },
+        {
+          "phase": 960,
+          "rom_bank": 42,
+          "matched": true,
+          "sha256": "c1ea8461d3fddaaa78b857585e84c0fe151d7a127945e2bde641a0d87f36f21d"
+        },
+        {
+          "phase": 991,
+          "rom_bank": 42,
+          "matched": true,
+          "sha256": "d1dce0eca91f952936282966a196e66715cea6c5f0177a8278993269566dabc3"
+        },
+        {
+          "phase": 992,
+          "rom_bank": 43,
+          "matched": true,
+          "sha256": "aecdd2cbb06c34d0ef0d46593dd14e2e06c8165e7a870553e1989c51646a16f7"
+        },
+        {
+          "phase": 1023,
+          "rom_bank": 43,
+          "matched": true,
+          "sha256": "1219e8cc047b9d401cf8bab125a3596fc6d0a5e138d42aa5e025a698d4696abd"
+        },
+        {
+          "phase": 0,
+          "rom_bank": 12,
+          "matched": true,
+          "sha256": "20bd7c195cbdbd1771e7e060a816e856fea98846342cc8946b57d88d8aa4dd85"
+        }
+      ],
+      "bytes_per_record": 256,
+      "seeded": true
+    },
+    {
+      "name": "all-three-native-car-poses-retain-v0.3-pixels-and-size",
+      "passed": true,
+      "poses": [
+        {
+          "pose": 0,
+          "opaque_pixels": 1394,
+          "mismatches": 0,
+          "file": "outputs/v0.4/screenshots/retained-car-pose-0.png"
+        },
+        {
+          "pose": 1,
+          "opaque_pixels": 1386,
+          "mismatches": 0,
+          "file": "outputs/v0.4/screenshots/retained-car-pose-1.png"
+        },
+        {
+          "pose": 2,
+          "opaque_pixels": 1389,
+          "mismatches": 0,
+          "file": "outputs/v0.4/screenshots/retained-car-pose-2.png"
+        }
+      ],
+      "size": [
+        56,
+        38
+      ],
+      "seeded": true
+    },
+    {
+      "name": "clear-side-overtake-counts-once-without-slowdown",
+      "passed": true,
+      "state": {
+        "passes": 1,
+        "hits": 0,
+        "speed": 128,
+        "mode": 1,
+        "traffic_z0": 1544,
+        "traffic_tag0": 0
+      },
+      "seeded": true
+    },
+    {
+      "name": "passed-car-does-not-repeat-score-every-frame",
+      "passed": true,
+      "state": {
+        "passes": 1,
+        "hits": 0,
+        "traffic_z0": 1589
+      },
+      "seeded": true
+    },
+    {
+      "name": "ordinary-car-contact-is-short-slowdown-not-failure",
+      "passed": true,
+      "frames": [
+        {
+          "speed": 72,
+          "hits": 1,
+          "passes": 0,
+          "recovery_timer": 20,
+          "traffic_tag0": 1,
+          "traffic_z0": 43,
+          "mode": 1
+        },
+        {
+          "speed": 74,
+          "hits": 1,
+          "passes": 0,
+          "recovery_timer": 19,
+          "traffic_tag0": 1,
+          "traffic_z0": 46,
+          "mode": 1
+        },
+        {
+          "speed": 76,
+          "hits": 1,
+          "passes": 0,
+          "recovery_timer": 18,
+          "traffic_tag0": 1,
+          "traffic_z0": 49,
+          "mode": 1
+        },
+        {
+          "speed": 78,
+          "hits": 1,
+          "passes": 0,
+          "recovery_timer": 17,
+          "traffic_tag0": 1,
+          "traffic_z0": 52,
+          "mode": 1
+        },
+        {
+          "speed": 80,
+          "hits": 1,
+          "passes": 0,
+          "recovery_timer": 16,
+          "traffic_tag0": 1,
+          "traffic_z0": 55,
+          "mode": 1
+        },
+        {
+          "speed": 80,
+          "hits": 1,
+          "passes": 0,
+          "recovery_timer": 15,
+          "traffic_tag0": 1,
+          "traffic_z0": 58,
+          "mode": 1
+        },
+        {
+          "speed": 80,
+          "hits": 1,
+          "passes": 0,
+          "recovery_timer": 14,
+          "traffic_tag0": 1,
+          "traffic_z0": 61,
+          "mode": 1
+        },
+        {
+          "speed": 80,
+          "hits": 1,
+          "passes": 0,
+          "recovery_timer": 13,
+          "traffic_tag0": 1,
+          "traffic_z0": 64,
+          "mode": 1
+        }
+      ],
+      "seeded": true
+    },
+    {
+      "name": "collision-recovery-restores-control-and-speed-without-hit-spam",
+      "passed": true,
+      "state": {
+        "hits": 1,
+        "speed": 128,
+        "recovery_timer": 0,
+        "mode": 1
+      },
+      "seeded": true
+    },
+    {
+      "name": "ordinary-traffic-contact-also-works-in-left-lane",
+      "passed": true,
+      "state": {
+        "hits": 1,
+        "speed": 80,
+        "traffic_lane0": -1,
+        "player_x": -48
+      },
+      "seeded": true
+    },
+    {
+      "name": "slow-speed-contact-never-accelerates-player",
+      "passed": true,
+      "state": {
+        "hits": 1,
+        "speed": 29
+      },
+      "speed_before_coasting": 30,
+      "seeded": true
+    },
+    {
+      "name": "traffic-coming-from-behind-does-not-award-an-overtake",
+      "passed": true,
+      "state": {
+        "passes": 0,
+        "hits": 0,
+        "speed": 0,
+        "traffic_z0": 2400
+      },
+      "seeded": true
+    },
+    {
+      "name": "ufo-does-not-start-before-meadow-trigger",
+      "passed": true,
+      "state": {
+        "distance": 1540,
+        "ufo_state": 0
+      },
+      "seeded": true
+    },
+    {
+      "name": "meadow-starts-announced-ufo-approach",
+      "passed": true,
+      "state": {
+        "ufo_state": 1,
+        "ufo_timer": 30,
+        "ufo_lane": 1,
+        "ufo_lap": 0,
+        "laps": 0
+      },
+      "seeded": true
+    },
+    {
+      "name": "ufo-approach-warning-active-departure-order",
+      "passed": true,
+      "transitions": [
+        {
+          "frame": 30,
+          "ufo_state": 2,
+          "ufo_timer": 45,
+          "ufo_catches": 0,
+          "speed": 128,
+          "lift_timer": 0,
+          "recovery_timer": 0
+        },
+        {
+          "frame": 75,
+          "ufo_state": 3,
+          "ufo_timer": 60,
+          "ufo_catches": 1,
+          "speed": 56,
+          "lift_timer": 30,
+          "recovery_timer": 24
+        },
+        {
+          "frame": 135,
+          "ufo_state": 4,
+          "ufo_timer": 30,
+          "ufo_catches": 1,
+          "speed": 128,
+          "lift_timer": 0,
+          "recovery_timer": 0
+        },
+        {
+          "frame": 165,
+          "ufo_state": 0,
+          "ufo_timer": 0,
+          "ufo_catches": 1,
+          "speed": 128,
+          "lift_timer": 0,
+          "recovery_timer": 0
+        }
+      ],
+      "seeded": true
+    },
+    {
+      "name": "ufo-provides-full-30-frame-approach-and-45-frame-warning",
+      "passed": true,
+      "transition_frames": [
+        30,
+        75,
+        135,
+        165
+      ],
+      "seeded": true
+    },
+    {
+      "name": "ufo-visible-approach-and-warning-are-nonharmful",
+      "passed": true,
+      "approach_frames": 30,
+      "warning_frames": 45,
+      "seeded": true
+    },
+    {
+      "name": "active-beam-catches-once-and-lifts-without-hard-stop",
+      "passed": true,
+      "catches": 1,
+      "minimum_speed": 56,
+      "maximum_lift_timer": 30,
+      "seeded": true
+    },
+    {
+      "name": "ufo-capture-short-recovery-returns-to-full-drive",
+      "passed": true,
+      "state": {
+        "ufo_catches": 1,
+        "speed": 128,
+        "lift_timer": 0,
+        "recovery_timer": 0,
+        "mode": 1
+      },
+      "seeded": true
+    },
+    {
+      "name": "ufo-does-not-retrigger-within-same-lap",
+      "passed": true,
+      "state": {
+        "ufo_state": 0,
+        "ufo_lap": 0,
+        "laps": 0,
+        "ufo_catches": 1
+      },
+      "seeded": true
+    },
+    {
+      "name": "opposite-half-road-remains-a-safe-ufo-escape",
+      "passed": true,
+      "state": {
+        "ufo_state": 0,
+        "ufo_catches": 0,
+        "ufo_dodges": 1,
+        "speed": 128,
+        "mode": 1
+      },
+      "seeded": true
+    },
+    {
+      "name": "next-lap-ufo-uses-opposite-side",
+      "passed": true,
+      "state": {
+        "ufo_state": 1,
+        "ufo_lane": -1,
+        "ufo_lap": 1,
+        "laps": 1
+      },
+      "seeded": true
+    },
+    {
+      "name": "slow-speed-UFO-capture-never-accelerates-player",
+      "passed": true,
+      "state": {
+        "ufo_catches": 1,
+        "speed": 29,
+        "lift_timer": 30
+      },
+      "seeded": true
+    },
+    {
+      "name": "pause-freezes-traffic-ufo-lift-and-recovery-timers",
+      "passed": true,
+      "before": {
+        "distance": 0,
+        "speed": 128,
+        "passes": 0,
+        "hits": 0,
+        "ufo_dodges": 0,
+        "ufo_catches": 0,
+        "ufo_state": 2,
+        "ufo_timer": 20,
+        "ufo_lane": 1,
+        "ufo_lap": 65535,
+        "ufo_caught": 0,
+        "recovery_timer": 12,
+        "lift_timer": 15,
+        "event_tick": 0,
+        "traffic_z0": 2500,
+        "traffic_lane0": 1,
+        "traffic_tag0": 0,
+        "traffic_z1": 2900,
+        "traffic_lane1": -1,
+        "traffic_tag1": 0,
+        "traffic_z2": 3300,
+        "traffic_lane2": 1,
+        "traffic_tag2": 0
+      },
+      "after": {
+        "distance": 0,
+        "speed": 128,
+        "passes": 0,
+        "hits": 0,
+        "ufo_dodges": 0,
+        "ufo_catches": 0,
+        "ufo_state": 2,
+        "ufo_timer": 20,
+        "ufo_lane": 1,
+        "ufo_lap": 65535,
+        "ufo_caught": 0,
+        "recovery_timer": 12,
+        "lift_timer": 15,
+        "event_tick": 0,
+        "traffic_z0": 2500,
+        "traffic_lane0": 1,
+        "traffic_tag0": 0,
+        "traffic_z1": 2900,
+        "traffic_lane1": -1,
+        "traffic_tag1": 0,
+        "traffic_z2": 3300,
+        "traffic_lane2": 1,
+        "traffic_tag2": 0
+      },
+      "seeded": true
+    },
+    {
+      "name": "verify_lap_clock-completed",
+      "passed": false,
+      "error": "<urlopen error [WinError 10055] \u30b7\u30b9\u30c6\u30e0\u306e\u30d0\u30c3\u30d5\u30a1\u30fc\u9818\u57df\u304c\u4e0d\u8db3\u3057\u3066\u3044\u308b\u304b\u3001\u307e\u305f\u306f\u30ad\u30e5\u30fc\u304c\u3044\u3063\u3071\u3044\u306a\u305f\u3081\u3001\u30bd\u30b1\u30c3\u30c8\u64cd\u4f5c\u3092\u5b9f\u884c\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f\u3002>"
+    },
+    {
+      "name": "traffic-and-UFO-all-eight-sections-near-30-fps",
+      "passed": false,
+      "sections": [
+        {
+          "name": "section-0",
+          "distance": 0,
+          "fps": 0.0,
+          "state": {
+            "ready": 165,
+            "mode": 1,
+            "frame_counter": 1190,
+            "distance": 0,
+            "speed": 128,
+            "player_x": -48,
+            "keys": 0,
+            "course_phase": 0,
+            "road_center": 1,
+            "hill": 0,
+            "offroad": 0,
+            "laps": 0,
+            "course_curve": 7,
+            "section": 0,
+            "distance_fraction": 0,
+            "passes": 0,
+            "hits": 0,
+            "ufo_dodges": 0,
+            "ufo_catches": 0,
+            "ufo_state": 0,
+            "ufo_timer": 60,
+            "ufo_lane": 1,
+            "ufo_lap": 65535,
+            "ufo_caught": 0,
+            "recovery_timer": 0,
+            "lift_timer": 0,
+            "event_tick": 0,
+            "traffic_z0": 110,
+            "traffic_lane0": 1,
+            "traffic_tag0": 0,
+            "traffic_z1": 350,
+            "traffic_lane1": -1,
+            "traffic_tag1": 0,
+            "traffic_z2": 650,
+            "traffic_lane2": 1,
+            "traffic_tag2": 0,
+            "lap_current_tenths": 0,
+            "lap_last_tenths": 0,
+            "lap_best_tenths": 0,
+            "lap_last_valid": 0,
+            "lap_best_valid": 0
+          }
+        },
+        {
+          "name": "section-1",
+          "distance": 512,
+          "fps": 0.0,
+          "state": {
+            "ready": 165,
+            "mode": 1,
+            "frame_counter": 1190,
+            "distance": 512,
+            "speed": 128,
+            "player_x": -48,
+            "keys": 0,
+            "course_phase": 0,
+            "road_center": 1,
+            "hill": 0,
+            "offroad": 0,
+            "laps": 0,
+            "course_curve": 7,
+            "section": 0,
+            "distance_fraction": 0,
+            "passes": 0,
+            "hits": 0,
+            "ufo_dodges": 0,
+            "ufo_catches": 0,
+            "ufo_state": 0,
+            "ufo_timer": 60,
+            "ufo_lane": 1,
+            "ufo_lap": 65535,
+            "ufo_caught": 0,
+            "recovery_timer": 0,
+            "lift_timer": 0,
+            "event_tick": 0,
+            "traffic_z0": 622,
+            "traffic_lane0": 1,
+            "traffic_tag0": 0,
+            "traffic_z1": 862,
+            "traffic_lane1": -1,
+            "traffic_tag1": 0,
+            "traffic_z2": 1162,
+            "traffic_lane2": 1,
+            "traffic_tag2": 0,
+            "lap_current_tenths": 0,
+            "lap_last_tenths": 0,
+            "lap_best_tenths": 0,
+            "lap_last_valid": 0,
+            "lap_best_valid": 0
+          }
+        },
+        {
+          "name": "section-2",
+          "distance": 1024,
+          "fps": 61214.631,
+          "state": {
+            "ready": 165,
+            "mode": 1,
+            "frame_counter": 12,
+            "distance": 8,
+            "speed": 26,
+            "player_x": 0,
+            "keys": 16,
+            "course_phase": 2,
+            "road_center": 1,
+            "hill": 0,
+            "offroad": 0,
+            "laps": 0,
+            "course_curve": 6,
+            "section": 0,
+            "distance_fraction": 17,
+            "passes": 0,
+            "hits": 0,
+            "ufo_dodges": 0,
+            "ufo_catches": 0,
+            "ufo_state": 0,
+            "ufo_timer": 0,
+            "ufo_lane": 1,
+            "ufo_lap": 65535,
+            "ufo_caught": 0,
+            "recovery_timer": 0,
+            "lift_timer": 0,
+            "event_tick": 13,
+            "traffic_z0": 259,
+            "traffic_lane0": -1,
+            "traffic_tag0": 0,
+            "traffic_z1": 759,
+            "traffic_lane1": 1,
+            "traffic_tag1": 0,
+            "traffic_z2": 1289,
+            "traffic_lane2": -1,
+            "traffic_tag2": 0,
+            "lap_current_tenths": 4,
+            "lap_last_tenths": 0,
+            "lap_best_tenths": 0,
+            "lap_last_valid": 0,
+            "lap_best_valid": 0
+          }
+        },
+        {
+          "name": "section-3",
+          "distance": 1536,
+          "fps": 30.437,
+          "state": {
+            "ready": 165,
+            "mode": 1,
+            "frame_counter": 52,
+            "distance": 1764,
+            "speed": 128,
+            "player_x": -48,
+            "keys": 16,
+            "course_phase": 441,
+            "road_center": 61,
+            "hill": 12,
+            "offroad": 0,
+            "laps": 0,
+            "course_curve": 13,
+            "section": 3,
+            "distance_fraction": 0,
+            "passes": 1,
+            "hits": 0,
+            "ufo_dodges": 0,
+            "ufo_catches": 0,
+            "ufo_state": 2,
+            "ufo_timer": 40,
+            "ufo_lane": 1,
+            "ufo_lap": 0,
+            "ufo_caught": 0,
+            "recovery_timer": 0,
+            "lift_timer": 0,
+            "event_tick": 38,
+            "traffic_z0": 3149,
+            "traffic_lane0": -1,
+            "traffic_tag0": 0,
+            "traffic_z1": 2000,
+            "traffic_lane1": -1,
+            "traffic_tag1": 0,
+            "traffic_z2": 2300,
+            "traffic_lane2": 1,
+            "traffic_tag2": 0,
+            "lap_current_tenths": 17,
+            "lap_last_tenths": 0,
+            "lap_best_tenths": 0,
+            "lap_last_valid": 0,
+            "lap_best_valid": 0
+          }
+        },
+        {
+          "name": "section-4",
+          "distance": 2048,
+          "fps": 30.692,
+          "state": {
+            "ready": 165,
+            "mode": 1,
+            "frame_counter": 92,
+            "distance": 2276,
+            "speed": 128,
+            "player_x": -48,
+            "keys": 16,
+            "course_phase": 569,
+            "road_center": 55,
+            "hill": 20,
+            "offroad": 0,
+            "laps": 0,
+            "course_curve": 0,
+            "section": 4,
+            "distance_fraction": 0,
+            "passes": 1,
+            "hits": 0,
+            "ufo_dodges": 0,
+            "ufo_catches": 0,
+            "ufo_state": 0,
+            "ufo_timer": 60,
+            "ufo_lane": 1,
+            "ufo_lap": 65535,
+            "ufo_caught": 0,
+            "recovery_timer": 0,
+            "lift_timer": 0,
+            "event_tick": 38,
+            "traffic_z0": 3661,
+            "traffic_lane0": -1,
+            "traffic_tag0": 0,
+            "traffic_z1": 2512,
+            "traffic_lane1": -1,
+            "traffic_tag1": 0,
+            "traffic_z2": 2812,
+            "traffic_lane2": 1,
+            "traffic_tag2": 0,
+            "lap_current_tenths": 30,
+            "lap_last_tenths": 0,
+            "lap_best_tenths": 0,
+            "lap_last_valid": 0,
+            "lap_best_valid": 0
+          }
+        },
+        {
+          "name": "section-5",
+          "distance": 2560,
+          "fps": 29.961,
+          "state": {
+            "ready": 165,
+            "mode": 1,
+            "frame_counter": 133,
+            "distance": 2799,
+            "speed": 128,
+            "player_x": -48,
+            "keys": 16,
+            "course_phase": 699,
+            "road_center": 51,
+            "hill": -1,
+            "offroad": 0,
+            "laps": 0,
+            "course_curve": -4,
+            "section": 5,
+            "distance_fraction": 30,
+            "passes": 1,
+            "hits": 0,
+            "ufo_dodges": 0,
+            "ufo_catches": 0,
+            "ufo_state": 0,
+            "ufo_timer": 60,
+            "ufo_lane": 1,
+            "ufo_lap": 65535,
+            "ufo_caught": 0,
+            "recovery_timer": 0,
+            "lift_timer": 0,
+            "event_tick": 40,
+            "traffic_z0": 82,
+            "traffic_lane0": -1,
+            "traffic_tag0": 0,
+            "traffic_z1": 3030,
+            "traffic_lane1": -1,
+            "traffic_tag1": 0,
+            "traffic_z2": 3330,
+            "traffic_lane2": 1,
+            "traffic_tag2": 0,
+            "lap_current_tenths": 44,
+            "lap_last_tenths": 0,
+            "lap_best_tenths": 0,
+            "lap_last_valid": 0,
+            "lap_best_valid": 0
+          }
+        },
+        {
+          "name": "section-6",
+          "distance": 3072,
+          "fps": 27.152,
+          "state": {
+            "ready": 165,
+            "mode": 1,
+            "frame_counter": 172,
+            "distance": 3294,
+            "speed": 128,
+            "player_x": -50,
+            "keys": 16,
+            "course_phase": 823,
+            "road_center": 60,
+            "hill": -17,
+            "offroad": 0,
+            "laps": 0,
+            "course_curve": 20,
+            "section": 6,
+            "distance_fraction": 0,
+            "passes": 1,
+            "hits": 0,
+            "ufo_dodges": 0,
+            "ufo_catches": 0,
+            "ufo_state": 0,
+            "ufo_timer": 60,
+            "ufo_lane": 1,
+            "ufo_lap": 65535,
+            "ufo_caught": 0,
+            "recovery_timer": 0,
+            "lift_timer": 0,
+            "event_tick": 37,
+            "traffic_z0": 586,
+            "traffic_lane0": -1,
+            "traffic_tag0": 0,
+            "traffic_z1": 3533,
+            "traffic_lane1": -1,
+            "traffic_tag1": 0,
+            "traffic_z2": 3833,
+            "traffic_lane2": 1,
+            "traffic_tag2": 0,
+            "lap_current_tenths": 58,
+            "lap_last_tenths": 0,
+            "lap_best_tenths": 0,
+            "lap_last_valid": 0,
+            "lap_best_valid": 0
+          }
+        },
+        {
+          "name": "section-7",
+          "distance": 3584,
+          "fps": 28.535,
+          "state": {
+            "ready": 165,
+            "mode": 1,
+            "frame_counter": 210,
+            "distance": 3805,
+            "speed": 128,
+            "player_x": -53,
+            "keys": 16,
+            "course_phase": 951,
+            "road_center": 73,
+            "hill": -8,
+            "offroad": 0,
+            "laps": 0,
+            "course_curve": 25,
+            "section": 7,
+            "distance_fraction": 30,
+            "passes": 1,
+            "hits": 0,
+            "ufo_dodges": 0,
+            "ufo_catches": 0,
+            "ufo_state": 0,
+            "ufo_timer": 60,
+            "ufo_lane": 1,
+            "ufo_lap": 65535,
+            "ufo_caught": 0,
+            "recovery_timer": 0,
+            "lift_timer": 0,
+            "event_tick": 37,
+            "traffic_z0": 1097,
+            "traffic_lane0": -1,
+            "traffic_tag0": 0,
+            "traffic_z1": 4045,
+            "traffic_lane1": -1,
+            "traffic_tag1": 0,
+            "traffic_z2": 249,
+            "traffic_lane2": 1,
+            "traffic_tag2": 0,
+            "lap_current_tenths": 71,
+            "lap_last_tenths": 0,
+            "lap_best_tenths": 0,
+            "lap_last_valid": 0,
+            "lap_best_valid": 0
+          }
+        },
+        {
+          "name": "active-UFO",
+          "distance": 1920,
+          "fps": 29.961,
+          "state": {
+            "ready": 165,
+            "mode": 1,
+            "frame_counter": 250,
+            "distance": 2153,
+            "speed": 128,
+            "player_x": -48,
+            "keys": 16,
+            "course_phase": 538,
+            "road_center": 57,
+            "hill": 21,
+            "offroad": 0,
+            "laps": 0,
+            "course_curve": 5,
+            "section": 4,
+            "distance_fraction": 30,
+            "passes": 1,
+            "hits": 0,
+            "ufo_dodges": 0,
+            "ufo_catches": 0,
+            "ufo_state": 3,
+            "ufo_timer": 21,
+            "ufo_lane": 1,
+            "ufo_lap": 65535,
+            "ufo_caught": 0,
+            "recovery_timer": 0,
+            "lift_timer": 0,
+            "event_tick": 39,
+            "traffic_z0": 3535,
+            "traffic_lane0": -1,
+            "traffic_tag0": 0,
+            "traffic_z1": 2387,
+            "traffic_lane1": -1,
+            "traffic_tag1": 0,
+            "traffic_z2": 2687,
+            "traffic_lane2": 1,
+            "traffic_tag2": 0,
+            "lap_current_tenths": 84,
+            "lap_last_tenths": 0,
+            "lap_best_tenths": 0,
+            "lap_last_valid": 0,
+            "lap_best_valid": 0
+          }
+        },
+        {
+          "name": "dense-scenery--96",
+          "distance": 1104,
+          "fps": 29.486,
+          "state": {
+            "ready": 165,
+            "mode": 1,
+            "frame_counter": 289,
+            "distance": 1326,
+            "speed": 128,
+            "player_x": -95,
+            "keys": 16,
+            "course_phase": 331,
+            "road_center": 117,
+            "hill": 5,
+            "offroad": 0,
+            "laps": 0,
+            "course_curve": -4,
+            "section": 2,
+            "distance_fraction": 0,
+            "passes": 1,
+            "hits": 0,
+            "ufo_dodges": 0,
+            "ufo_catches": 0,
+            "ufo_state": 0,
+            "ufo_timer": 60,
+            "ufo_lane": 1,
+            "ufo_lap": 65535,
+            "ufo_caught": 0,
+            "recovery_timer": 0,
+            "lift_timer": 0,
+            "event_tick": 37,
+            "traffic_z0": 2714,
+            "traffic_lane0": -1,
+            "traffic_tag0": 0,
+            "traffic_z1": 1565,
+            "traffic_lane1": -1,
+            "traffic_tag1": 0,
+            "traffic_z2": 1865,
+            "traffic_lane2": 1,
+            "traffic_tag2": 0,
+            "lap_current_tenths": 98,
+            "lap_last_tenths": 0,
+            "lap_best_tenths": 0,
+            "lap_last_valid": 0,
+            "lap_best_valid": 0
+          }
+        },
+        {
+          "name": "dense-scenery-0",
+          "distance": 876,
+          "fps": 30.437,
+          "state": {
+            "ready": 165,
+            "mode": 1,
+            "frame_counter": 329,
+            "distance": 1104,
+            "speed": 128,
+            "player_x": 5,
+            "keys": 16,
+            "course_phase": 276,
+            "road_center": -8,
+            "hill": 4,
+            "offroad": 0,
+            "laps": 0,
+            "course_curve": -18,
+            "section": 2,
+            "distance_fraction": 0,
+            "passes": 1,
+            "hits": 0,
+            "ufo_dodges": 0,
+            "ufo_catches": 0,
+            "ufo_state": 0,
+            "ufo_timer": 60,
+            "ufo_lane": 1,
+            "ufo_lap": 65535,
+            "ufo_caught": 0,
+            "recovery_timer": 0,
+            "lift_timer": 0,
+            "event_tick": 38,
+            "traffic_z0": 2489,
+            "traffic_lane0": -1,
+            "traffic_tag0": 0,
+            "traffic_z1": 1340,
+            "traffic_lane1": -1,
+            "traffic_tag1": 0,
+            "traffic_z2": 1640,
+            "traffic_lane2": 1,
+            "traffic_tag2": 0,
+            "lap_current_tenths": 111,
+            "lap_last_tenths": 0,
+            "lap_best_tenths": 0,
+            "lap_last_valid": 0,
+            "lap_best_valid": 0
+          }
+        },
+        {
+          "name": "dense-scenery-96",
+          "distance": 3024,
+          "fps": 29.486,
+          "state": {
+            "ready": 165,
+            "mode": 1,
+            "frame_counter": 368,
+            "distance": 3246,
+            "speed": 128,
+            "player_x": 95,
+            "keys": 16,
+            "course_phase": 811,
+            "road_center": -110,
+            "hill": -16,
+            "offroad": 0,
+            "laps": 0,
+            "course_curve": 18,
+            "section": 6,
+            "distance_fraction": 0,
+            "passes": 1,
+            "hits": 0,
+            "ufo_dodges": 0,
+            "ufo_catches": 0,
+            "ufo_state": 0,
+            "ufo_timer": 60,
+            "ufo_lane": 1,
+            "ufo_lap": 65535,
+            "ufo_caught": 0,
+            "recovery_timer": 0,
+            "lift_timer": 0,
+            "event_tick": 37,
+            "traffic_z0": 538,
+            "traffic_lane0": -1,
+            "traffic_tag0": 0,
+            "traffic_z1": 3485,
+            "traffic_lane1": -1,
+            "traffic_tag1": 0,
+            "traffic_z2": 3785,
+            "traffic_lane2": 1,
+            "traffic_tag2": 0,
+            "lap_current_tenths": 125,
+            "lap_last_tenths": 0,
+            "lap_best_tenths": 0,
+            "lap_last_valid": 0,
+            "lap_best_valid": 0
+          }
+        }
+      ],
+      "seeded": true
+    },
+    {
+      "name": "consecutive-native-encounter-frames-move",
+      "passed": true,
+      "distinct": 170,
+      "total": 170
+    },
+    {
+      "name": "native-gif-pixels-and-timing-match-captures",
+      "passed": true,
+      "frames": 170,
+      "native_frames": 170
+    }
+  ],
+  "emulator": "openMSX 21.0-unknown",
+  "rom_slot": "carta {1 X ./outputs/MAGICAL_HAPPY_RALLY-v0.4.rom}",
+  "loaded_rom": {
+    "sha1": "723d5cdbcad2fda8565c5bf6610843e64696a2b3",
+    "mapper": "ASCII8"
+  },
+  "ufo_cycle_frame_states": [
+    {
+      "ufo_state": 1,
+      "ufo_timer": 30,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 29,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 28,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 27,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 26,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 25,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 24,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 23,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 22,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 21,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 20,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 19,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 18,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 17,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 16,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 15,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 14,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 13,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 12,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 11,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 10,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 9,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 8,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 7,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 6,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 5,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 4,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 3,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 2,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 1,
+      "ufo_timer": 1,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 45,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 44,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 43,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 42,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 41,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 40,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 39,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 38,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 37,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 36,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 35,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 34,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 33,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 32,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 31,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 30,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 29,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 28,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 27,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 26,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 25,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 24,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 23,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 22,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 21,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 20,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 19,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 18,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 17,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 16,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 15,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 14,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 13,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 12,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 11,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 10,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 9,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 8,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 7,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 6,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 5,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 4,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 3,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 2,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 2,
+      "ufo_timer": 1,
+      "ufo_catches": 0,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 60,
+      "ufo_catches": 1,
+      "speed": 56,
+      "lift_timer": 30,
+      "recovery_timer": 24
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 59,
+      "ufo_catches": 1,
+      "speed": 58,
+      "lift_timer": 29,
+      "recovery_timer": 23
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 58,
+      "ufo_catches": 1,
+      "speed": 60,
+      "lift_timer": 28,
+      "recovery_timer": 22
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 57,
+      "ufo_catches": 1,
+      "speed": 62,
+      "lift_timer": 27,
+      "recovery_timer": 21
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 56,
+      "ufo_catches": 1,
+      "speed": 64,
+      "lift_timer": 26,
+      "recovery_timer": 20
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 55,
+      "ufo_catches": 1,
+      "speed": 66,
+      "lift_timer": 25,
+      "recovery_timer": 19
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 54,
+      "ufo_catches": 1,
+      "speed": 68,
+      "lift_timer": 24,
+      "recovery_timer": 18
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 53,
+      "ufo_catches": 1,
+      "speed": 70,
+      "lift_timer": 23,
+      "recovery_timer": 17
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 52,
+      "ufo_catches": 1,
+      "speed": 72,
+      "lift_timer": 22,
+      "recovery_timer": 16
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 51,
+      "ufo_catches": 1,
+      "speed": 74,
+      "lift_timer": 21,
+      "recovery_timer": 15
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 50,
+      "ufo_catches": 1,
+      "speed": 76,
+      "lift_timer": 20,
+      "recovery_timer": 14
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 49,
+      "ufo_catches": 1,
+      "speed": 78,
+      "lift_timer": 19,
+      "recovery_timer": 13
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 48,
+      "ufo_catches": 1,
+      "speed": 80,
+      "lift_timer": 18,
+      "recovery_timer": 12
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 47,
+      "ufo_catches": 1,
+      "speed": 80,
+      "lift_timer": 17,
+      "recovery_timer": 11
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 46,
+      "ufo_catches": 1,
+      "speed": 80,
+      "lift_timer": 16,
+      "recovery_timer": 10
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 45,
+      "ufo_catches": 1,
+      "speed": 80,
+      "lift_timer": 15,
+      "recovery_timer": 9
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 44,
+      "ufo_catches": 1,
+      "speed": 80,
+      "lift_timer": 14,
+      "recovery_timer": 8
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 43,
+      "ufo_catches": 1,
+      "speed": 80,
+      "lift_timer": 13,
+      "recovery_timer": 7
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 42,
+      "ufo_catches": 1,
+      "speed": 80,
+      "lift_timer": 12,
+      "recovery_timer": 6
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 41,
+      "ufo_catches": 1,
+      "speed": 80,
+      "lift_timer": 11,
+      "recovery_timer": 5
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 40,
+      "ufo_catches": 1,
+      "speed": 80,
+      "lift_timer": 10,
+      "recovery_timer": 4
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 39,
+      "ufo_catches": 1,
+      "speed": 80,
+      "lift_timer": 9,
+      "recovery_timer": 3
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 38,
+      "ufo_catches": 1,
+      "speed": 80,
+      "lift_timer": 8,
+      "recovery_timer": 2
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 37,
+      "ufo_catches": 1,
+      "speed": 80,
+      "lift_timer": 7,
+      "recovery_timer": 1
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 36,
+      "ufo_catches": 1,
+      "speed": 80,
+      "lift_timer": 6,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 35,
+      "ufo_catches": 1,
+      "speed": 82,
+      "lift_timer": 5,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 34,
+      "ufo_catches": 1,
+      "speed": 84,
+      "lift_timer": 4,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 33,
+      "ufo_catches": 1,
+      "speed": 86,
+      "lift_timer": 3,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 32,
+      "ufo_catches": 1,
+      "speed": 88,
+      "lift_timer": 2,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 31,
+      "ufo_catches": 1,
+      "speed": 90,
+      "lift_timer": 1,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 30,
+      "ufo_catches": 1,
+      "speed": 92,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 29,
+      "ufo_catches": 1,
+      "speed": 94,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 28,
+      "ufo_catches": 1,
+      "speed": 96,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 27,
+      "ufo_catches": 1,
+      "speed": 98,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 26,
+      "ufo_catches": 1,
+      "speed": 100,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 25,
+      "ufo_catches": 1,
+      "speed": 102,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 24,
+      "ufo_catches": 1,
+      "speed": 104,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 23,
+      "ufo_catches": 1,
+      "speed": 106,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 22,
+      "ufo_catches": 1,
+      "speed": 108,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 21,
+      "ufo_catches": 1,
+      "speed": 110,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 20,
+      "ufo_catches": 1,
+      "speed": 112,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 19,
+      "ufo_catches": 1,
+      "speed": 114,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 18,
+      "ufo_catches": 1,
+      "speed": 116,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 17,
+      "ufo_catches": 1,
+      "speed": 118,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 16,
+      "ufo_catches": 1,
+      "speed": 120,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 15,
+      "ufo_catches": 1,
+      "speed": 122,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 14,
+      "ufo_catches": 1,
+      "speed": 124,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 13,
+      "ufo_catches": 1,
+      "speed": 126,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 12,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 11,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 10,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 9,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 8,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 7,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 6,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 5,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 4,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 3,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 2,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 3,
+      "ufo_timer": 1,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 30,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 29,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 28,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 27,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 26,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 25,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 24,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 23,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 22,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 21,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 20,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 19,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 18,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 17,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 16,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 15,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 14,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 13,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 12,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 11,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 10,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 9,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 8,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 7,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 6,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 5,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 4,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 3,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 2,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 4,
+      "ufo_timer": 1,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    },
+    {
+      "ufo_state": 0,
+      "ufo_timer": 0,
+      "ufo_catches": 1,
+      "speed": 128,
+      "lift_timer": 0,
+      "recovery_timer": 0
+    }
+  ],
+  "errors": [
+    {
+      "group": "verify_lap_clock",
+      "message": "<urlopen error [WinError 10055] \u30b7\u30b9\u30c6\u30e0\u306e\u30d0\u30c3\u30d5\u30a1\u30fc\u9818\u57df\u304c\u4e0d\u8db3\u3057\u3066\u3044\u308b\u304b\u3001\u307e\u305f\u306f\u30ad\u30e5\u30fc\u304c\u3044\u3063\u3071\u3044\u306a\u305f\u3081\u3001\u30bd\u30b1\u30c3\u30c8\u64cd\u4f5c\u3092\u5b9f\u884c\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f\u3002>"
+    }
+  ],
+  "section_frame_rates": [
+    {
+      "name": "section-0",
+      "distance": 0,
+      "fps": 0.0,
+      "state": {
+        "ready": 165,
+        "mode": 1,
+        "frame_counter": 1190,
+        "distance": 0,
+        "speed": 128,
+        "player_x": -48,
+        "keys": 0,
+        "course_phase": 0,
+        "road_center": 1,
+        "hill": 0,
+        "offroad": 0,
+        "laps": 0,
+        "course_curve": 7,
+        "section": 0,
+        "distance_fraction": 0,
+        "passes": 0,
+        "hits": 0,
+        "ufo_dodges": 0,
+        "ufo_catches": 0,
+        "ufo_state": 0,
+        "ufo_timer": 60,
+        "ufo_lane": 1,
+        "ufo_lap": 65535,
+        "ufo_caught": 0,
+        "recovery_timer": 0,
+        "lift_timer": 0,
+        "event_tick": 0,
+        "traffic_z0": 110,
+        "traffic_lane0": 1,
+        "traffic_tag0": 0,
+        "traffic_z1": 350,
+        "traffic_lane1": -1,
+        "traffic_tag1": 0,
+        "traffic_z2": 650,
+        "traffic_lane2": 1,
+        "traffic_tag2": 0,
+        "lap_current_tenths": 0,
+        "lap_last_tenths": 0,
+        "lap_best_tenths": 0,
+        "lap_last_valid": 0,
+        "lap_best_valid": 0
+      }
+    },
+    {
+      "name": "section-1",
+      "distance": 512,
+      "fps": 0.0,
+      "state": {
+        "ready": 165,
+        "mode": 1,
+        "frame_counter": 1190,
+        "distance": 512,
+        "speed": 128,
+        "player_x": -48,
+        "keys": 0,
+        "course_phase": 0,
+        "road_center": 1,
+        "hill": 0,
+        "offroad": 0,
+        "laps": 0,
+        "course_curve": 7,
+        "section": 0,
+        "distance_fraction": 0,
+        "passes": 0,
+        "hits": 0,
+        "ufo_dodges": 0,
+        "ufo_catches": 0,
+        "ufo_state": 0,
+        "ufo_timer": 60,
+        "ufo_lane": 1,
+        "ufo_lap": 65535,
+        "ufo_caught": 0,
+        "recovery_timer": 0,
+        "lift_timer": 0,
+        "event_tick": 0,
+        "traffic_z0": 622,
+        "traffic_lane0": 1,
+        "traffic_tag0": 0,
+        "traffic_z1": 862,
+        "traffic_lane1": -1,
+        "traffic_tag1": 0,
+        "traffic_z2": 1162,
+        "traffic_lane2": 1,
+        "traffic_tag2": 0,
+        "lap_current_tenths": 0,
+        "lap_last_tenths": 0,
+        "lap_best_tenths": 0,
+        "lap_last_valid": 0,
+        "lap_best_valid": 0
+      }
+    },
+    {
+      "name": "section-2",
+      "distance": 1024,
+      "fps": 61214.631,
+      "state": {
+        "ready": 165,
+        "mode": 1,
+        "frame_counter": 12,
+        "distance": 8,
+        "speed": 26,
+        "player_x": 0,
+        "keys": 16,
+        "course_phase": 2,
+        "road_center": 1,
+        "hill": 0,
+        "offroad": 0,
+        "laps": 0,
+        "course_curve": 6,
+        "section": 0,
+        "distance_fraction": 17,
+        "passes": 0,
+        "hits": 0,
+        "ufo_dodges": 0,
+        "ufo_catches": 0,
+        "ufo_state": 0,
+        "ufo_timer": 0,
+        "ufo_lane": 1,
+        "ufo_lap": 65535,
+        "ufo_caught": 0,
+        "recovery_timer": 0,
+        "lift_timer": 0,
+        "event_tick": 13,
+        "traffic_z0": 259,
+        "traffic_lane0": -1,
+        "traffic_tag0": 0,
+        "traffic_z1": 759,
+        "traffic_lane1": 1,
+        "traffic_tag1": 0,
+        "traffic_z2": 1289,
+        "traffic_lane2": -1,
+        "traffic_tag2": 0,
+        "lap_current_tenths": 4,
+        "lap_last_tenths": 0,
+        "lap_best_tenths": 0,
+        "lap_last_valid": 0,
+        "lap_best_valid": 0
+      }
+    },
+    {
+      "name": "section-3",
+      "distance": 1536,
+      "fps": 30.437,
+      "state": {
+        "ready": 165,
+        "mode": 1,
+        "frame_counter": 52,
+        "distance": 1764,
+        "speed": 128,
+        "player_x": -48,
+        "keys": 16,
+        "course_phase": 441,
+        "road_center": 61,
+        "hill": 12,
+        "offroad": 0,
+        "laps": 0,
+        "course_curve": 13,
+        "section": 3,
+        "distance_fraction": 0,
+        "passes": 1,
+        "hits": 0,
+        "ufo_dodges": 0,
+        "ufo_catches": 0,
+        "ufo_state": 2,
+        "ufo_timer": 40,
+        "ufo_lane": 1,
+        "ufo_lap": 0,
+        "ufo_caught": 0,
+        "recovery_timer": 0,
+        "lift_timer": 0,
+        "event_tick": 38,
+        "traffic_z0": 3149,
+        "traffic_lane0": -1,
+        "traffic_tag0": 0,
+        "traffic_z1": 2000,
+        "traffic_lane1": -1,
+        "traffic_tag1": 0,
+        "traffic_z2": 2300,
+        "traffic_lane2": 1,
+        "traffic_tag2": 0,
+        "lap_current_tenths": 17,
+        "lap_last_tenths": 0,
+        "lap_best_tenths": 0,
+        "lap_last_valid": 0,
+        "lap_best_valid": 0
+      }
+    },
+    {
+      "name": "section-4",
+      "distance": 2048,
+      "fps": 30.692,
+      "state": {
+        "ready": 165,
+        "mode": 1,
+        "frame_counter": 92,
+        "distance": 2276,
+        "speed": 128,
+        "player_x": -48,
+        "keys": 16,
+        "course_phase": 569,
+        "road_center": 55,
+        "hill": 20,
+        "offroad": 0,
+        "laps": 0,
+        "course_curve": 0,
+        "section": 4,
+        "distance_fraction": 0,
+        "passes": 1,
+        "hits": 0,
+        "ufo_dodges": 0,
+        "ufo_catches": 0,
+        "ufo_state": 0,
+        "ufo_timer": 60,
+        "ufo_lane": 1,
+        "ufo_lap": 65535,
+        "ufo_caught": 0,
+        "recovery_timer": 0,
+        "lift_timer": 0,
+        "event_tick": 38,
+        "traffic_z0": 3661,
+        "traffic_lane0": -1,
+        "traffic_tag0": 0,
+        "traffic_z1": 2512,
+        "traffic_lane1": -1,
+        "traffic_tag1": 0,
+        "traffic_z2": 2812,
+        "traffic_lane2": 1,
+        "traffic_tag2": 0,
+        "lap_current_tenths": 30,
+        "lap_last_tenths": 0,
+        "lap_best_tenths": 0,
+        "lap_last_valid": 0,
+        "lap_best_valid": 0
+      }
+    },
+    {
+      "name": "section-5",
+      "distance": 2560,
+      "fps": 29.961,
+      "state": {
+        "ready": 165,
+        "mode": 1,
+        "frame_counter": 133,
+        "distance": 2799,
+        "speed": 128,
+        "player_x": -48,
+        "keys": 16,
+        "course_phase": 699,
+        "road_center": 51,
+        "hill": -1,
+        "offroad": 0,
+        "laps": 0,
+        "course_curve": -4,
+        "section": 5,
+        "distance_fraction": 30,
+        "passes": 1,
+        "hits": 0,
+        "ufo_dodges": 0,
+        "ufo_catches": 0,
+        "ufo_state": 0,
+        "ufo_timer": 60,
+        "ufo_lane": 1,
+        "ufo_lap": 65535,
+        "ufo_caught": 0,
+        "recovery_timer": 0,
+        "lift_timer": 0,
+        "event_tick": 40,
+        "traffic_z0": 82,
+        "traffic_lane0": -1,
+        "traffic_tag0": 0,
+        "traffic_z1": 3030,
+        "traffic_lane1": -1,
+        "traffic_tag1": 0,
+        "traffic_z2": 3330,
+        "traffic_lane2": 1,
+        "traffic_tag2": 0,
+        "lap_current_tenths": 44,
+        "lap_last_tenths": 0,
+        "lap_best_tenths": 0,
+        "lap_last_valid": 0,
+        "lap_best_valid": 0
+      }
+    },
+    {
+      "name": "section-6",
+      "distance": 3072,
+      "fps": 27.152,
+      "state": {
+        "ready": 165,
+        "mode": 1,
+        "frame_counter": 172,
+        "distance": 3294,
+        "speed": 128,
+        "player_x": -50,
+        "keys": 16,
+        "course_phase": 823,
+        "road_center": 60,
+        "hill": -17,
+        "offroad": 0,
+        "laps": 0,
+        "course_curve": 20,
+        "section": 6,
+        "distance_fraction": 0,
+        "passes": 1,
+        "hits": 0,
+        "ufo_dodges": 0,
+        "ufo_catches": 0,
+        "ufo_state": 0,
+        "ufo_timer": 60,
+        "ufo_lane": 1,
+        "ufo_lap": 65535,
+        "ufo_caught": 0,
+        "recovery_timer": 0,
+        "lift_timer": 0,
+        "event_tick": 37,
+        "traffic_z0": 586,
+        "traffic_lane0": -1,
+        "traffic_tag0": 0,
+        "traffic_z1": 3533,
+        "traffic_lane1": -1,
+        "traffic_tag1": 0,
+        "traffic_z2": 3833,
+        "traffic_lane2": 1,
+        "traffic_tag2": 0,
+        "lap_current_tenths": 58,
+        "lap_last_tenths": 0,
+        "lap_best_tenths": 0,
+        "lap_last_valid": 0,
+        "lap_best_valid": 0
+      }
+    },
+    {
+      "name": "section-7",
+      "distance": 3584,
+      "fps": 28.535,
+      "state": {
+        "ready": 165,
+        "mode": 1,
+        "frame_counter": 210,
+        "distance": 3805,
+        "speed": 128,
+        "player_x": -53,
+        "keys": 16,
+        "course_phase": 951,
+        "road_center": 73,
+        "hill": -8,
+        "offroad": 0,
+        "laps": 0,
+        "course_curve": 25,
+        "section": 7,
+        "distance_fraction": 30,
+        "passes": 1,
+        "hits": 0,
+        "ufo_dodges": 0,
+        "ufo_catches": 0,
+        "ufo_state": 0,
+        "ufo_timer": 60,
+        "ufo_lane": 1,
+        "ufo_lap": 65535,
+        "ufo_caught": 0,
+        "recovery_timer": 0,
+        "lift_timer": 0,
+        "event_tick": 37,
+        "traffic_z0": 1097,
+        "traffic_lane0": -1,
+        "traffic_tag0": 0,
+        "traffic_z1": 4045,
+        "traffic_lane1": -1,
+        "traffic_tag1": 0,
+        "traffic_z2": 249,
+        "traffic_lane2": 1,
+        "traffic_tag2": 0,
+        "lap_current_tenths": 71,
+        "lap_last_tenths": 0,
+        "lap_best_tenths": 0,
+        "lap_last_valid": 0,
+        "lap_best_valid": 0
+      }
+    },
+    {
+      "name": "active-UFO",
+      "distance": 1920,
+      "fps": 29.961,
+      "state": {
+        "ready": 165,
+        "mode": 1,
+        "frame_counter": 250,
+        "distance": 2153,
+        "speed": 128,
+        "player_x": -48,
+        "keys": 16,
+        "course_phase": 538,
+        "road_center": 57,
+        "hill": 21,
+        "offroad": 0,
+        "laps": 0,
+        "course_curve": 5,
+        "section": 4,
+        "distance_fraction": 30,
+        "passes": 1,
+        "hits": 0,
+        "ufo_dodges": 0,
+        "ufo_catches": 0,
+        "ufo_state": 3,
+        "ufo_timer": 21,
+        "ufo_lane": 1,
+        "ufo_lap": 65535,
+        "ufo_caught": 0,
+        "recovery_timer": 0,
+        "lift_timer": 0,
+        "event_tick": 39,
+        "traffic_z0": 3535,
+        "traffic_lane0": -1,
+        "traffic_tag0": 0,
+        "traffic_z1": 2387,
+        "traffic_lane1": -1,
+        "traffic_tag1": 0,
+        "traffic_z2": 2687,
+        "traffic_lane2": 1,
+        "traffic_tag2": 0,
+        "lap_current_tenths": 84,
+        "lap_last_tenths": 0,
+        "lap_best_tenths": 0,
+        "lap_last_valid": 0,
+        "lap_best_valid": 0
+      }
+    },
+    {
+      "name": "dense-scenery--96",
+      "distance": 1104,
+      "fps": 29.486,
+      "state": {
+        "ready": 165,
+        "mode": 1,
+        "frame_counter": 289,
+        "distance": 1326,
+        "speed": 128,
+        "player_x": -95,
+        "keys": 16,
+        "course_phase": 331,
+        "road_center": 117,
+        "hill": 5,
+        "offroad": 0,
+        "laps": 0,
+        "course_curve": -4,
+        "section": 2,
+        "distance_fraction": 0,
+        "passes": 1,
+        "hits": 0,
+        "ufo_dodges": 0,
+        "ufo_catches": 0,
+        "ufo_state": 0,
+        "ufo_timer": 60,
+        "ufo_lane": 1,
+        "ufo_lap": 65535,
+        "ufo_caught": 0,
+        "recovery_timer": 0,
+        "lift_timer": 0,
+        "event_tick": 37,
+        "traffic_z0": 2714,
+        "traffic_lane0": -1,
+        "traffic_tag0": 0,
+        "traffic_z1": 1565,
+        "traffic_lane1": -1,
+        "traffic_tag1": 0,
+        "traffic_z2": 1865,
+        "traffic_lane2": 1,
+        "traffic_tag2": 0,
+        "lap_current_tenths": 98,
+        "lap_last_tenths": 0,
+        "lap_best_tenths": 0,
+        "lap_last_valid": 0,
+        "lap_best_valid": 0
+      }
+    },
+    {
+      "name": "dense-scenery-0",
+      "distance": 876,
+      "fps": 30.437,
+      "state": {
+        "ready": 165,
+        "mode": 1,
+        "frame_counter": 329,
+        "distance": 1104,
+        "speed": 128,
+        "player_x": 5,
+        "keys": 16,
+        "course_phase": 276,
+        "road_center": -8,
+        "hill": 4,
+        "offroad": 0,
+        "laps": 0,
+        "course_curve": -18,
+        "section": 2,
+        "distance_fraction": 0,
+        "passes": 1,
+        "hits": 0,
+        "ufo_dodges": 0,
+        "ufo_catches": 0,
+        "ufo_state": 0,
+        "ufo_timer": 60,
+        "ufo_lane": 1,
+        "ufo_lap": 65535,
+        "ufo_caught": 0,
+        "recovery_timer": 0,
+        "lift_timer": 0,
+        "event_tick": 38,
+        "traffic_z0": 2489,
+        "traffic_lane0": -1,
+        "traffic_tag0": 0,
+        "traffic_z1": 1340,
+        "traffic_lane1": -1,
+        "traffic_tag1": 0,
+        "traffic_z2": 1640,
+        "traffic_lane2": 1,
+        "traffic_tag2": 0,
+        "lap_current_tenths": 111,
+        "lap_last_tenths": 0,
+        "lap_best_tenths": 0,
+        "lap_last_valid": 0,
+        "lap_best_valid": 0
+      }
+    },
+    {
+      "name": "dense-scenery-96",
+      "distance": 3024,
+      "fps": 29.486,
+      "state": {
+        "ready": 165,
+        "mode": 1,
+        "frame_counter": 368,
+        "distance": 3246,
+        "speed": 128,
+        "player_x": 95,
+        "keys": 16,
+        "course_phase": 811,
+        "road_center": -110,
+        "hill": -16,
+        "offroad": 0,
+        "laps": 0,
+        "course_curve": 18,
+        "section": 6,
+        "distance_fraction": 0,
+        "passes": 1,
+        "hits": 0,
+        "ufo_dodges": 0,
+        "ufo_catches": 0,
+        "ufo_state": 0,
+        "ufo_timer": 60,
+        "ufo_lane": 1,
+        "ufo_lap": 65535,
+        "ufo_caught": 0,
+        "recovery_timer": 0,
+        "lift_timer": 0,
+        "event_tick": 37,
+        "traffic_z0": 538,
+        "traffic_lane0": -1,
+        "traffic_tag0": 0,
+        "traffic_z1": 3485,
+        "traffic_lane1": -1,
+        "traffic_tag1": 0,
+        "traffic_z2": 3785,
+        "traffic_lane2": 1,
+        "traffic_tag2": 0,
+        "lap_current_tenths": 125,
+        "lap_last_tenths": 0,
+        "lap_best_tenths": 0,
+        "lap_last_valid": 0,
+        "lap_best_valid": 0
+      }
+    }
+  ],
+  "native_capture": {
+    "frames": 170,
+    "file": "outputs/v0.4/drive-native.gif",
+    "emulated_seconds": 5.640597,
+    "fps": 29.961,
+    "seeded": true,
+    "states": [
+      {
+        "distance": 1562,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 29,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1568,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 28,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1574,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 27,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1580,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 26,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1586,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 25,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1592,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 24,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1598,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 23,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1604,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 22,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1610,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 21,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1616,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 20,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1622,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 19,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1628,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 18,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1634,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 17,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1640,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 16,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1646,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 15,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1652,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 14,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1658,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 13,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1664,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 12,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1670,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 11,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1676,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 10,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1682,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 9,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1688,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 8,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1694,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 7,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1700,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 6,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1706,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 5,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1712,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 4,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1718,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 3,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1724,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 2,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1730,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 1,
+        "ufo_timer": 1,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1736,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 45,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1742,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 44,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1748,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 43,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1754,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 42,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1760,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 41,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1766,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 40,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1772,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 39,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1778,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 38,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1784,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 37,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1790,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 36,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1796,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 35,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1802,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 34,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1808,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 33,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1814,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 32,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1820,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 31,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1826,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 30,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1832,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 29,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1838,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 28,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1844,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 27,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1850,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 26,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1856,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 25,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1862,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 24,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1868,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 23,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1874,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 22,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1880,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 21,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1886,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 20,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1892,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 19,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1898,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 18,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1904,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 17,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1910,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 16,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1916,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 15,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1922,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 14,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1928,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 13,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1934,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 12,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1940,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 0,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 11,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1946,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 10,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1952,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 9,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1958,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 8,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1964,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 7,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1970,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 6,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1976,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 5,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1982,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 4,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1988,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 3,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 1994,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 2,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2000,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 2,
+        "ufo_timer": 1,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2006,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 60,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2012,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 59,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2018,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 58,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2024,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 57,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2030,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 56,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2036,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 55,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2042,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 54,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2048,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 53,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2054,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 52,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2060,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 51,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2066,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 50,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2072,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 49,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2078,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 48,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2084,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 47,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2090,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 46,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2096,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 45,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2102,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 44,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2108,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 43,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2114,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 42,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2120,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 41,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2126,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 40,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2132,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 39,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2138,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 38,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2144,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 37,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2150,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 36,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2156,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 35,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2162,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 34,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2168,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 33,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2174,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 32,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2180,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 31,
+        "ufo_dodges": 0,
+        "ufo_catches": 0
+      },
+      {
+        "distance": 2186,
+        "speed": 56,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 30,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2188,
+        "speed": 58,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 29,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2191,
+        "speed": 60,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 28,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2194,
+        "speed": 62,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 27,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2197,
+        "speed": 64,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 26,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2200,
+        "speed": 66,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 25,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2203,
+        "speed": 68,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 24,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2207,
+        "speed": 70,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 23,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2210,
+        "speed": 72,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 22,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2213,
+        "speed": 74,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 21,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2217,
+        "speed": 76,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 20,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2221,
+        "speed": 78,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 19,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2224,
+        "speed": 80,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 18,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2228,
+        "speed": 80,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 17,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2232,
+        "speed": 80,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 16,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2236,
+        "speed": 80,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 15,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2240,
+        "speed": 80,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 14,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2244,
+        "speed": 80,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 13,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2247,
+        "speed": 80,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 12,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2251,
+        "speed": 80,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 11,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2255,
+        "speed": 80,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 10,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2259,
+        "speed": 80,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 9,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2263,
+        "speed": 80,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 8,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2267,
+        "speed": 80,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 7,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2270,
+        "speed": 80,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 6,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2274,
+        "speed": 82,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 5,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2278,
+        "speed": 84,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 4,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2282,
+        "speed": 86,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 3,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2286,
+        "speed": 88,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 2,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2291,
+        "speed": 90,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 3,
+        "ufo_timer": 1,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2295,
+        "speed": 92,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 30,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2299,
+        "speed": 94,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 29,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2304,
+        "speed": 96,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 28,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2308,
+        "speed": 98,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 27,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2313,
+        "speed": 100,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 26,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2318,
+        "speed": 102,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 25,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2323,
+        "speed": 104,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 24,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2328,
+        "speed": 106,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 23,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2333,
+        "speed": 108,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 22,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2338,
+        "speed": 110,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 21,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2343,
+        "speed": 112,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 20,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2349,
+        "speed": 114,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 19,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2354,
+        "speed": 116,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 18,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2360,
+        "speed": 118,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 17,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2365,
+        "speed": 120,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 16,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2371,
+        "speed": 122,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 15,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2377,
+        "speed": 124,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 14,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2383,
+        "speed": 126,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 13,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2389,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 12,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2395,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 11,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2401,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 10,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2407,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 9,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2413,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 8,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2419,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 7,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2425,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 6,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2431,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 5,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2437,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 4,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2443,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 3,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2449,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 2,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2455,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 4,
+        "ufo_timer": 1,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2461,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 0,
+        "ufo_timer": 0,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2467,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 0,
+        "ufo_timer": 0,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2473,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 0,
+        "ufo_timer": 0,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2479,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 0,
+        "ufo_timer": 0,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2485,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 0,
+        "ufo_timer": 0,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      },
+      {
+        "distance": 2491,
+        "speed": 128,
+        "player_x": 24,
+        "passes": 1,
+        "hits": 0,
+        "ufo_state": 0,
+        "ufo_timer": 0,
+        "ufo_dodges": 0,
+        "ufo_catches": 1
+      }
+    ]
+  },
+  "input_lap_skipped_reason": "Frame-rate target not met; optimize before the final lap.",
+  "passed": false,
+  "checks_passed": 56,
+  "checks_total": 58,
+  "publication_context": {
+    "origin": "Public checkout, second verification attempt",
+    "valid_complete_verification": false,
+    "reason": "WinError 10055 during the clock checks; later performance samples crossed an apparent reset and are invalid. No complete input-only lap was run. Cause not established.",
+    "game_or_verifier_logic_changed": false,
+    "capture_files_published": false,
+    "capture_path_note": "Paths inside this snapshot identify the original capture filenames. Those overwritten captures are not published; the public screenshots and technical GIF belong to the separate development run.",
+    "original_record_sha256": "f901c892d6aeb8d09b290255551e20b18864a909b485e254857bfd5e0fbf60b3"
+  }
+}

@@ -1,0 +1,220 @@
+{
+  "scope": "Added traffic and UFO encounters; existing driving, road, scenery and sprites retained.",
+  "physical_hardware_tested": false,
+  "results": [
+    {
+      "name": "v0.3-baseline-files-preserved",
+      "passed": true,
+      "files": 2,
+      "mismatches": []
+    },
+    {
+      "name": "base-driving-road-and-background-functions-preserved",
+      "passed": true,
+      "functions": [
+        "update",
+        "camera_shift",
+        "draw_sky",
+        "draw_road",
+        "frame_done"
+      ],
+      "changed": []
+    },
+    {
+      "name": "approved-course-copy-is-exact-256-byte-LDIR-only",
+      "passed": true,
+      "load_course_other_logic_preserved": true,
+      "helper_exact": true,
+      "approved_change": "SDCC call1 HL source; DE=_profile; BC=256; LDIR; RET. No source bytes, geometry, bank selection or input changes."
+    },
+    {
+      "name": "v0.3-hardware-palette-near-scenery-and-verifiers-preserved",
+      "passed": true,
+      "files": [
+        "src/hardware.c",
+        "src/hardware.h",
+        "src/boot.asm",
+        "src/palette.h",
+        "src/scenery.h",
+        "assets/scenery.bin",
+        "tools/verify_drive.py",
+        "tools/compare_speed_car.py"
+      ],
+      "changed": []
+    },
+    {
+      "name": "all-1024-road-and-existing-scenery-profiles-preserved",
+      "passed": true,
+      "profile_bytes_preserved": 192,
+      "new_projection_bytes": 64,
+      "changed_profiles": []
+    },
+    {
+      "name": "v0.3-car-font-sky-and-existing-sprites-preserved",
+      "passed": true,
+      "added_tables": {
+        "traffic_car": [
+          [
+            0,
+            855,
+            72,
+            47
+          ],
+          [
+            74,
+            855,
+            64,
+            42
+          ],
+          [
+            140,
+            855,
+            56,
+            37
+          ],
+          [
+            198,
+            855,
+            48,
+            31
+          ],
+          [
+            0,
+            904,
+            40,
+            26
+          ],
+          [
+            42,
+            904,
+            34,
+            22
+          ],
+          [
+            78,
+            904,
+            28,
+            18
+          ],
+          [
+            108,
+            904,
+            24,
+            16
+          ],
+          [
+            134,
+            904,
+            20,
+            13
+          ],
+          [
+            156,
+            904,
+            16,
+            10
+          ],
+          [
+            174,
+            904,
+            14,
+            9
+          ],
+          [
+            190,
+            904,
+            12,
+            8
+          ],
+          [
+            204,
+            904,
+            10,
+            7
+          ],
+          [
+            216,
+            904,
+            8,
+            5
+          ],
+          [
+            226,
+            904,
+            6,
+            4
+          ],
+          [
+            234,
+            904,
+            4,
+            3
+          ]
+        ],
+        "ufo": [
+          [
+            0,
+            932,
+            52,
+            20
+          ]
+        ],
+        "cow": [
+          [
+            54,
+            932,
+            20,
+            14
+          ]
+        ],
+        "car_shadow": [
+          [
+            76,
+            932,
+            56,
+            6
+          ]
+        ]
+      },
+      "changed_bytes_outside_new_sprites": 0,
+      "old_sprite_overlaps": []
+    },
+    {
+      "name": "enlarged-v0.3-car-size-retained",
+      "passed": true,
+      "size": [
+        56,
+        38
+      ],
+      "poses": 3
+    },
+    {
+      "name": "512KiB-AB-cartridge-and-hash",
+      "passed": true,
+      "bytes": 524288,
+      "sha256": "89aea977464a8cd5f28d9ca1b83a7329d691b437f52444a06729d5588cda8291"
+    },
+    {
+      "name": "ROM-vram-bank-payload-matches-assets",
+      "passed": true,
+      "bytes": 65536,
+      "rom_offset": 32768,
+      "sha256": "9db7baf791841057df6aadbe83fa34b5505cd96fcfeccca245dc484cc02d7c97"
+    },
+    {
+      "name": "ROM-course-bank-payload-matches-assets",
+      "passed": true,
+      "bytes": 262144,
+      "rom_offset": 98304,
+      "sha256": "88298ca1d108899f67b8cb2bf9b1315d072d0d7ad9111708a3190453b0c0b805"
+    },
+    {
+      "name": "ROM-scenery-bank-payload-matches-assets",
+      "passed": true,
+      "bytes": 131072,
+      "rom_offset": 360448,
+      "sha256": "dab4c80cc9b9d0fe35552c390d459ed357774042c1c89b5e405f29b96e4575a4"
+    }
+  ],
+  "passed": true
+}

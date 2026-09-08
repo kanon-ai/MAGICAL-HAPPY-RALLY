@@ -1,0 +1,10 @@
+/work/
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+/bios/
+/systemroms/
+/outputs/v0.4/screenshots/native-*.png
+/outputs/v0.4/*-verification.json

@@ -1,0 +1,65 @@
+{
+  "phases": 1024,
+  "bytes": 262144,
+  "bytes_per_phase": 256,
+  "sha256": "88298ca1d108899f67b8cb2bf9b1315d072d0d7ad9111708a3190453b0c0b805",
+  "exact_geometry_loop": true,
+  "horizon_range": [
+    74,
+    112
+  ],
+  "signed_curve_range": [
+    -33,
+    29
+  ],
+  "method": "Height-aware near-to-far road intersections, 41 variable-height spans",
+  "validation": "Generated geometry only, not native runtime performance",
+  "road_handling_and_scenery_identical_to_v03": true,
+  "event_projection_uses_previously_zero_padding": true,
+  "event_projection": {
+    "offset": 192,
+    "records_per_phase": 16,
+    "record_bytes": 4,
+    "depth_distance_units": [
+      28,
+      32,
+      36,
+      42,
+      50,
+      60,
+      72,
+      86,
+      102,
+      124,
+      150,
+      184,
+      230,
+      292,
+      380,
+      512
+    ],
+    "world_units_per_distance": 25,
+    "signed_x_range": [
+      -30,
+      26
+    ],
+    "ground_y_range": [
+      84,
+      248
+    ],
+    "clip_bottom_range": [
+      84,
+      186
+    ],
+    "width_matches_road_projection": true,
+    "record_count": 16384,
+    "hill_clip_nonincreasing_with_depth": true,
+    "hill_mask": "Minimum projected ground y in nearer road samples, capped at 186"
+  },
+  "scenery": {
+    "max_records": 8,
+    "large_visible_records": 1170,
+    "mean_visible_bbox_pixels": 10798.6,
+    "max_visible_bbox_pixels": 22204
+  }
+}
