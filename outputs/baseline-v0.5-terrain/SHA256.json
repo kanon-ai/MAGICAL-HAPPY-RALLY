@@ -1,0 +1,8 @@
+{
+  "src/game.c": "b8881982104aeac5f23af09315f2dacf7676db27f5ee3e7f5d2eafd690dde217",
+  "src/hardware.c": "f6f037cccf752cdfe2f3194d16aa389f914c545b66ae6e69680129b41c66ad5c",
+  "src/course.h": "2d6089a793b59aaa26ad316cbf08766a60f0c820b8ff66a78d9a4d6e5b9bc2b9",
+  "src/palette.h": "20b3b190d72a1c2070461bf2e8e3c4dd77d72541b9c24d9d8a20ec6fbc25f67c",
+  "assets/course.bin": "ccabb191e324373b24e47e15ad666fb8b9e664351946b53fb9a1bfa127a39be2",
+  "old-hardware.asm": "e81551bb5d36486945f6ddf2389c162fbe9ac72b413c89289b01212eb9d4037d"
+}

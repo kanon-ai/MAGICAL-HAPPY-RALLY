@@ -1,0 +1,106 @@
+{
+  "method": "source-bound instruction arithmetic and ordered I/O/stack model",
+  "native_execution_test": false,
+  "physical_hardware_tested": false,
+  "checks": [
+    {
+      "name": "persistent-candidate-A-fixture-hashes-valid",
+      "passed": true,
+      "payload_files": 6,
+      "manifest_entries": 6,
+      "missing": [],
+      "changed": [],
+      "extra": []
+    },
+    {
+      "name": "reviewed-old-and-new-span-functions-match-models",
+      "passed": true,
+      "old_sha256": "d53af6753da2aa5b84d538e5361d3cc0dac8d6e6aa8e0cbcf266e800cec03e7e",
+      "new_sha256": "25f619e80eeee53e187aeacf0b818e595c24cfae9f4f37a1fe51ae2b42a05f79"
+    },
+    {
+      "name": "other-hardware-functions-unchanged",
+      "passed": true
+    },
+    {
+      "name": "compiled-span-is-exact-reviewed-inline-ASM",
+      "passed": true,
+      "source_instructions_sha256": "6e19044874b80ad7af400e8e479b26fc028b551e139a8a22030b568dc4761bf3",
+      "compiled_instructions_sha256": "6e19044874b80ad7af400e8e479b26fc028b551e139a8a22030b568dc4761bf3"
+    },
+    {
+      "name": "old-SDCC-call1-ABI-and-new-cleanup-match",
+      "passed": true,
+      "old_compiler_evidence_present": true,
+      "arguments": "HL left, DE right, one color byte on stack",
+      "old_color": "4(IX) after PUSH IX",
+      "new_color": "SP+2 without a prologue",
+      "return_stack_advance": 3,
+      "ix_iy": "untouched by naked function"
+    },
+    {
+      "name": "signed16-clipping-instruction-carry-and-boundaries",
+      "passed": true,
+      "cases": 3015167,
+      "all_left_values": 65536,
+      "all_right_values": 65536,
+      "opposite_coordinate_boundaries": [
+        -32768,
+        -32767,
+        -512,
+        -257,
+        -256,
+        -255,
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        127,
+        128,
+        254,
+        255,
+        256,
+        257,
+        511,
+        512,
+        32766,
+        32767
+      ],
+      "left_relative_right_offsets": [
+        -1,
+        0,
+        1
+      ],
+      "post_clipping_pairs": 66049,
+      "exhaustive_32bit_pair_space": false,
+      "errors": []
+    },
+    {
+      "name": "all-256-color-bytes-identical",
+      "passed": true,
+      "cases": 256,
+      "errors": []
+    },
+    {
+      "name": "ordered-V9990-byte-trace-wait-and-call-stack-equivalence",
+      "passed": true,
+      "cases": 15360,
+      "io_writes_per_nonempty_span": 14,
+      "errors": [],
+      "includes": [
+        "rejected span has no reads/writes",
+        "busy wait precedes writes",
+        "DX/DY/NX/NY byte order",
+        "color duplication",
+        "command 0x20",
+        "return PC",
+        "one-byte argument removal",
+        "IX/IY",
+        "live stack canaries"
+      ],
+      "zero_height": "Modeled as original; callers must supply valid band heights, currently 2 or 4."
+    }
+  ],
+  "passed": true
+}

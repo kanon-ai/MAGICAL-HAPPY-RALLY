@@ -1,8 +1,8 @@
 {
   "title": "MAGICAL HAPPY RALLY",
-  "version": "0.4",
+  "version": "0.5",
   "working_title": true,
-  "file": "MAGICAL_HAPPY_RALLY-v0.4.rom",
+  "file": "MAGICAL_HAPPY_RALLY-v0.5.rom",
   "machine": "MSX turbo R + V9990",
   "mapper": "ASCII8",
   "rom_bytes": 524288,
@@ -12,7 +12,7 @@
   "runtime_address": "8000-DFFF",
   "data_address": "E000-EFFF",
   "stack_top": "F300",
-  "entry": "0xa9e7",
+  "entry": "0xa97f",
   "vram": {
     "bytes": 65536,
     "rom_offset": 32768,
@@ -29,7 +29,7 @@
     "road_bytes": 128,
     "object_bytes": 64,
     "event_projection_bytes": 64,
-    "sha256": "88298ca1d108899f67b8cb2bf9b1315d072d0d7ad9111708a3190453b0c0b805"
+    "sha256": "ccabb191e324373b24e47e15ad666fb8b9e664351946b53fb9a1bfa127a39be2"
   },
   "scenery": {
     "bytes": 131072,
@@ -39,20 +39,20 @@
     "vram_byte_offset": 196608,
     "sha256": "dab4c80cc9b9d0fe35552c390d459ed357774042c1c89b5e405f29b96e4575a4"
   },
-  "sha256": "89aea977464a8cd5f28d9ca1b83a7329d691b437f52444a06729d5588cda8291",
+  "sha256": "53cb766fa001831a8ed75e93aee2c7059d61ad24e24d715811e59e5369412191",
   "sources": {
     "src/assets.h": "b47674fb6d5f08a34fc5934710fada45f9d5b740fa8dde49907966976af2c9a0",
     "src/boot.asm": "920e386ac673b013012e26184a3fadd976de884f925b9dd01b7a46c33f206ce3",
     "src/course.h": "2d6089a793b59aaa26ad316cbf08766a60f0c820b8ff66a78d9a4d6e5b9bc2b9",
     "src/encounters.h": "db0d6608c55725c333c3939fd991a0790d4a4032e7938043a8253bc573221a59",
-    "src/game.c": "d5230edc8a8514820019346d6e67cacf14ea77812c0dce8b9c5ce29a75b9576d",
-    "src/hardware.c": "f6f037cccf752cdfe2f3194d16aa389f914c545b66ae6e69680129b41c66ad5c",
+    "src/game.c": "e5df4d1c2bd0267e1f9f9d21b3e397dfa54e1a2a56cf13f57a6da33ec5d59d2a",
+    "src/hardware.c": "318a76175ac3bd41005b1eace17459345107d8d7576c088a8bef3c79acec8df2",
     "src/hardware.h": "ad12bd3a4216e414cca36f0c78603de91e71925f031f854b6540e054c0a61905",
     "src/lap_clock.h": "9d9f2574580e161c264fa24209af0bb5217a07826f99d7752362cbf43701fcb0",
     "src/palette.h": "20b3b190d72a1c2070461bf2e8e3c4dd77d72541b9c24d9d8a20ec6fbc25f67c",
     "src/scenery.h": "f83a1564838424b40ba824a7e165723ab3f07f0050b736644da1400529ab1b6d",
-    "tools/build.py": "be0e556fe5095234caf427920e6e5305118e0fbc29a7342053de74aca0ad36d0",
+    "tools/build.py": "b060d41eee434a9e7dcd07b32c58383d2383fcb13c87a1307a0e462efb11e415",
     "tools/generate_assets.py": "8f084a69e7ac876aa14a4eb18890c9b9af6a1c1cb80f9ad9d23d225ab042069e",
-    "tools/generate_course.py": "bd266319ebc26b0c83ea475e5178cddb88e0e616fac0e72e9ef1f8b876758f01"
+    "tools/generate_course.py": "76ca4b92609857d3a4a3947efef05a1424cb642f142aa93d8c52c7789659d1fb"
   }
 }

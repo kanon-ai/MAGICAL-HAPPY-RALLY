@@ -1,0 +1,239 @@
+{
+  "method": "exact source-bound host interval and instruction arithmetic models",
+  "native_validation": false,
+  "physical_hardware_tested": false,
+  "checks": [
+    {
+      "name": "persistent-candidate-A-fixture-hashes-valid",
+      "passed": true,
+      "payload_files": 6,
+      "manifest_entries": 6,
+      "missing": [],
+      "changed": [],
+      "extra": []
+    },
+    {
+      "name": "reviewed-C-functions-match-exact-models",
+      "passed": true,
+      "actual": {
+        "old": {
+          "camera_shift": "591aded929e1feee06ab9373a77103e1112bc79a11a109e446e1f237d6eb2019",
+          "draw_road": "70bc0563759ea3a804d04b0b1af13aa5aff457a25a89c8792555df3c1b0b2912"
+        },
+        "new": {
+          "camera_shift": "36329de146ec8923a8a44e97638110afcc5b9bd106670820abfa2bf20418d714",
+          "draw_road": "d77ad019add442b25bc8031fddd2872e86ec0172be8ec2d35e5e7cc46e6baf05"
+        }
+      },
+      "expected": {
+        "old": {
+          "camera_shift": "591aded929e1feee06ab9373a77103e1112bc79a11a109e446e1f237d6eb2019",
+          "draw_road": "70bc0563759ea3a804d04b0b1af13aa5aff457a25a89c8792555df3c1b0b2912"
+        },
+        "new": {
+          "camera_shift": "36329de146ec8923a8a44e97638110afcc5b9bd106670820abfa2bf20418d714",
+          "draw_road": "d77ad019add442b25bc8031fddd2872e86ec0172be8ec2d35e5e7cc46e6baf05"
+        }
+      }
+    },
+    {
+      "name": "all-other-game-functions-unchanged",
+      "passed": true,
+      "allowed_functions": [
+        "camera_shift",
+        "draw_road"
+      ],
+      "allowed_global_declarations": [
+        "static s16 road_asm_c,road_asm_left,road_asm_right;",
+        "static u8 road_asm_i;",
+        ""
+      ],
+      "scratch_bytes": 7
+    },
+    {
+      "name": "candidate-A-course-bands-and-palette-unchanged",
+      "passed": true,
+      "changed": [],
+      "course_sha256": "ccabb191e324373b24e47e15ad666fb8b9e664351946b53fb9a1bfa127a39be2"
+    },
+    {
+      "name": "R800-five-instruction-quotient-all-valid-inputs",
+      "passed": true,
+      "cases": 36992,
+      "player_range": [
+        -144,
+        144
+      ],
+      "halfwidth_range": [
+        0,
+        127
+      ],
+      "maximum_product": 18288,
+      "errors": []
+    },
+    {
+      "name": "band-height-and-double-buffer-Y-equivalence",
+      "passed": true,
+      "band_y": [
+        64,
+        66,
+        68,
+        70,
+        72,
+        74,
+        76,
+        78,
+        80,
+        82,
+        84,
+        86,
+        88,
+        90,
+        92,
+        94,
+        96,
+        98,
+        100,
+        102,
+        104,
+        106,
+        110,
+        114,
+        118,
+        122,
+        126,
+        130,
+        134,
+        138,
+        142,
+        146,
+        150,
+        154,
+        158,
+        162,
+        166,
+        170,
+        174,
+        178,
+        182
+      ],
+      "band_h": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "pages": [
+        0,
+        1
+      ],
+      "explanation": "Both models use page*256+band_y[i]; pointers advance even for hidden bands."
+    },
+    {
+      "name": "compiled-road-is-exact-reviewed-inline-ASM",
+      "passed": true,
+      "source_instructions_sha256": "490979525674f59fadb772cb7a8be6996c3f33d666eefad76afc68a32f3d99d4",
+      "compiled_instructions_sha256": "490979525674f59fadb772cb7a8be6996c3f33d666eefad76afc68a32f3d99d4"
+    },
+    {
+      "name": "compiled-41-band-tables-offset-and-seven-byte-scratch",
+      "passed": true,
+      "indexed_table_offset": 41,
+      "band_count": 41,
+      "profile_bytes_advanced": 123,
+      "scratch_bytes": {
+        "road_asm_c": 2,
+        "road_asm_left": 2,
+        "road_asm_right": 2,
+        "road_asm_i": 1
+      },
+      "table_source_and_emitted_bytes_identical": true
+    },
+    {
+      "name": "naked-road-IX-IY-and-call1-stack-balanced",
+      "passed": true,
+      "span_call_sites": 5,
+      "color_argument_bytes_each": 1,
+      "argument_setup_sp_change": -1,
+      "callee_span_return_sp_change": 3,
+      "call_instruction_sp_change": -2,
+      "entry_to_return_sp_change": 2,
+      "ix_iy": "PUSH IX/PUSH IY, POP IY/POP IX; camera_shift and gfx_span preserve these registers"
+    },
+    {
+      "name": "instruction-loop-covers-all-41-bands-on-both-pages",
+      "passed": true,
+      "calls": 2048,
+      "includes_hidden_band_pointer_advance": true,
+      "errors": []
+    },
+    {
+      "name": "all-phases-all-player-positions-final-road-pixels-identical",
+      "passed": true,
+      "failure": null,
+      "scenarios": 295936,
+      "phases": 1024,
+      "player_range": [
+        -144,
+        144
+      ],
+      "band_cases": 12133376,
+      "hidden_band_cases": 2977856,
+      "unique_interval_proofs": 127423,
+      "scanline_pixels_represented": 9242673152,
+      "includes": [
+        "clipping",
+        "arbitrary background",
+        "band height",
+        "both stripe colors",
+        "grass shading",
+        "verge",
+        "near gravel tracks",
+        "signed camera shift"
+      ],
+      "full_width_band_cases": 243566,
+      "span_commands_before": 23761170,
+      "span_commands_after": 23395884,
+      "filled_pixels_before": 11187631650,
+      "filled_pixels_after": 10813578786
+    }
+  ],
+  "passed": true
+}

@@ -79,16 +79,81 @@ void gfx_begin_spans(void){
     gfx_wait();hw_reg_select=44;
     hw_reg_data=0;hw_reg_data=0x0c;hw_reg_data=0xff;hw_reg_data=0xff;
 }
-void gfx_span(s16 left,s16 right,u8 color){
-    u16 width;
-    if(left<0)left=0;if(right>256)right=256;
-    if(right<=left)return;
-    width=right-left;color|=color<<4;
-    gfx_wait();hw_reg_select=36;
-    WORD(left);WORD(span_y);WORD(width);
-    hw_reg_data=span_height;hw_reg_data=0;
-    hw_reg_select=48;hw_reg_data=color;hw_reg_data=color;
-    reg_write(52,0x20);
+void gfx_span(s16 left,s16 right,u8 color) __naked{
+    /* SDCC call(1): left=HL, right=DE, color=[SP+2]; callee removes color.
+     * Preserve the original signed clipping and V9990 command byte order.
+     * No IX/IY use; all registers below are caller-clobbered in this ABI.
+     */
+    __asm
+    bit 7,h
+    jr z,span_left_nonnegative
+    ld hl,#0
+span_left_nonnegative:
+    bit 7,d
+    jr nz,span_return
+    ld a,d
+    or a
+    jr z,span_right_clipped
+    ld de,#256
+span_right_clipped:
+    ld a,h
+    or a
+    jr nz,span_return
+    ld a,e
+    sub l
+    ld c,a
+    ld a,d
+    sbc a,#0
+    jr c,span_return
+    ld b,a
+    or c
+    jr z,span_return
+span_wait:
+    in a,(_hw_status)
+    and #1
+    jr nz,span_wait
+    ld a,#36
+    out (_hw_reg_select),a
+    ld a,l
+    out (_hw_reg_data),a
+    xor a
+    out (_hw_reg_data),a
+    ld a,(_span_y)
+    out (_hw_reg_data),a
+    ld a,(_span_y+1)
+    out (_hw_reg_data),a
+    ld a,c
+    out (_hw_reg_data),a
+    ld a,b
+    out (_hw_reg_data),a
+    ld a,(_span_height)
+    out (_hw_reg_data),a
+    xor a
+    out (_hw_reg_data),a
+    ld hl,#2
+    add hl,sp
+    ld a,(hl)
+    ld e,a
+    add a,a
+    add a,a
+    add a,a
+    add a,a
+    or e
+    ld e,a
+    ld a,#48
+    out (_hw_reg_select),a
+    ld a,e
+    out (_hw_reg_data),a
+    out (_hw_reg_data),a
+    ld a,#52
+    out (_hw_reg_select),a
+    ld a,#0x20
+    out (_hw_reg_data),a
+span_return:
+    pop hl
+    inc sp
+    jp (hl)
+    __endasm;
 }
 void gfx_flip(u8 page){
     gfx_wait();gfx_vblank();reg_write(18,page&1);

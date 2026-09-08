@@ -1,7 +1,7 @@
 @echo off
 setlocal
 cd /d "%~dp0"
-if not exist "outputs\MAGICAL_HAPPY_RALLY-v0.4.rom" (
+if not exist "outputs\MAGICAL_HAPPY_RALLY-v0.5.rom" (
   echo Build the cartridge with BUILD.cmd first.
   pause
   exit /b 1

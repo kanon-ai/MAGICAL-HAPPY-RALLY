@@ -3,3 +3,5 @@
 *.md text eol=lf
 .gitignore text eol=lf
 .gitattributes text eol=lf
+# Preserve whitespace in the byte-exact compiler-output comparison fixture.
+outputs/baseline-v0.5-terrain/old-hardware.asm -whitespace

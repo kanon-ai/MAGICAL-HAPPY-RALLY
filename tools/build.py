@@ -125,7 +125,7 @@ def main():
     rom += bytes([0xFF]) * (ROM_BYTES - used)
     assert len(rom) == ROM_BYTES
     assert rom[COURSE_OFFSET:COURSE_OFFSET + len(course)] == course
-    target = out / "MAGICAL_HAPPY_RALLY-v0.4.rom"
+    target = out / "MAGICAL_HAPPY_RALLY-v0.5.rom"
     try:
         target.write_bytes(rom)
     except OSError as error:
@@ -142,7 +142,7 @@ def main():
     source_paths = sorted((ROOT / "src").glob("*")) + [
         ROOT / "tools/build.py", ROOT / "tools/generate_assets.py", ROOT / "tools/generate_course.py"]
     manifest = {
-        "title": "MAGICAL HAPPY RALLY", "version": "0.4", "working_title": True,
+        "title": "MAGICAL HAPPY RALLY", "version": "0.5", "working_title": True,
         "file": target.name, "machine": "MSX turbo R + V9990", "mapper": "ASCII8",
         "rom_bytes": len(rom), "allocated_bytes": used, "free_bytes": ROM_BYTES - used,
         "runtime_bytes": max(memory) - 0x8000 + 1, "runtime_address": "8000-DFFF",

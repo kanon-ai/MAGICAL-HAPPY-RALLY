@@ -9,7 +9,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-rom = ROOT/'outputs/MAGICAL_HAPPY_RALLY-v0.4.rom'
+rom = ROOT/'outputs/MAGICAL_HAPPY_RALLY-v0.5.rom'
 before = rom.read_bytes()
 subprocess.run([sys.executable, str(ROOT/'tools/build.py')], cwd=ROOT, check=True)
 after = rom.read_bytes()
@@ -25,6 +25,6 @@ checks = {
 }
 report = {'sha256': sha, 'rom_bytes': len(after), 'checks': checks,
           'native_runtime_test': False}
-(ROOT/'outputs/rebuild-verification-v0.4.json').write_text(json.dumps(report, indent=2)+'\n')
+(ROOT/'outputs/rebuild-verification-v0.5.json').write_text(json.dumps(report, indent=2)+'\n')
 print(json.dumps(report, indent=2))
 assert all(checks.values()), 'Rebuild verification failed'

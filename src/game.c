@@ -1,4 +1,4 @@
-/* MAGICAL HAPPY RALLY v0.4 — original native turbo R / V9990 drive prototype.
+/* MAGICAL HAPPY RALLY v0.5 — original native turbo R / V9990 drive prototype.
  * No host-side simulation. All gameplay, input, sound and drawing run here.
  */
 #include "hardware.h"
@@ -35,10 +35,13 @@ static s16 camera_shift(u8 halfwidth) __naked{
     neg
 drive_multiply:
     .db 0xed,0xc9
-    .rept 6
-    srl h
-    rr l
-    .endm
+    ; |player_x| <= 144 and halfwidth <= 127: product < 32768.
+    ; Shift left twice, retaining bit 16, then take the high byte.
+    add hl,hl
+    add hl,hl
+    ld l,h
+    ld h,#0
+    rl h
     bit 7,b
     jr z,drive_positive
     xor a
@@ -147,33 +150,200 @@ static void draw_sky(void){
     }else gfx_blit(0,SKY_Y+44,0,page_y()+clouds,256,h-clouds,0);
     gfx_fill(0,page_y()+h,256,186-h,COL_GRASS);
 }
-static void draw_road(void){
-    u8 i,*p=profile;
-    s16 c,edge,shift;
-    u8 flag,w;
-    gfx_begin_spans();
-    for(i=0;i<COURSE_BANDS;++i,p+=3){
-        w=p[1];if(!w)continue;
-        span_y=page_y()+band_y[i];span_height=band_h[i];flag=p[2]&1;
-        /* Halve first to keep products in signed 16-bit range at road edges. */
-        shift=camera_shift(w>>1);
-        c=128+(s8)p[0]-shift;
-        if(i==COURSE_BANDS-1)road_center=c-128;
-        if(flag){
-            /* Ground shade follows the shoulders, not full-screen bars. */
-            /* Road paint immediately covers the middle: one transfer has
-             * the same visible shoulders with less command setup overhead. */
-            gfx_span(c-3*w,c+3*w,COL_GRASS_ALT);
-        }
-        edge=1+(w>>4);
-        gfx_span(c-w-edge,c+w+edge,COL_VERGE);
-        gfx_span(c-w,c+w,flag?COL_ROAD_LIGHT:COL_ROAD);
-        /* Two sparse gravel tracks, anchored in the projected road surface. */
-        if(flag&&i>36){
-            gfx_span(c-(w>>2),c-(w>>2)+1+(w>>6),COL_ROAD);
-            gfx_span(c+(w>>2),c+(w>>2)+1+(w>>6),COL_ROAD);
-        }
-    }
+static s16 road_asm_c,road_asm_left,road_asm_right;
+static u8 road_asm_i;
+
+static void draw_road(void) __naked{
+    __asm
+    .globl _gfx_begin_spans
+    .globl _gfx_span
+    .globl _camera_shift
+    .globl _draw_page
+    .globl _profile
+    .globl _span_y
+    .globl _span_height
+    .globl _road_center
+    push ix
+    push iy
+    call _gfx_begin_spans
+    ld a,(_draw_page)
+    ld (_span_y+1),a
+    xor a
+    ld (_road_asm_i),a
+    ld ix,#_profile
+    ld iy,#_band_y
+road_asm_loop:
+    ld a,1(ix)
+    or a
+    jp z,road_asm_next
+    ld a,0(iy)
+    ld (_span_y),a
+    ; Both tables are emitted in the same CODE area. The assembler resolves
+    ; their actual distance; it diagnoses an out-of-range indexed operand.
+    ld a,_band_h-_band_y(iy)
+    ld (_span_height),a
+    ld a,1(ix)
+    srl a
+    call _camera_shift
+    ld a,0(ix)
+    ld l,a
+    rlca
+    sbc a,a
+    ld h,a
+    ld bc,#128
+    add hl,bc
+    or a
+    sbc hl,de
+    ld (_road_asm_c),hl
+    ld a,(_road_asm_i)
+    cp #40
+    jr nz,road_asm_not_last
+    ld de,#128
+    or a
+    sbc hl,de
+    ld (_road_center),hl
+    add hl,de
+road_asm_not_last:
+    ld c,1(ix)
+    ld b,#0
+    or a
+    sbc hl,bc
+    ld (_road_asm_left),hl
+    add hl,bc
+    add hl,bc
+    ld (_road_asm_right),hl
+    ; Preserve signed (left > 0 || right < 256), including off-screen spans.
+    ld de,(_road_asm_left)
+    bit 7,d
+    jr nz,road_asm_check_right
+    ld a,d
+    or e
+    jr nz,road_asm_shoulders
+road_asm_check_right:
+    bit 7,h
+    jr nz,road_asm_shoulders
+    ld a,h
+    or a
+    jp nz,road_asm_road
+road_asm_shoulders:
+    bit 0,2(ix)
+    jr z,road_asm_verge
+    ; c +/- 3*w == left - 2*w, right + 2*w.
+    ld c,1(ix)
+    ld b,#0
+    sla c
+    rl b
+    ld hl,(_road_asm_left)
+    or a
+    sbc hl,bc
+    ld de,(_road_asm_right)
+    ex de,hl
+    add hl,bc
+    ex de,hl
+    ld a,#COL_GRASS_ALT
+    push af
+    inc sp
+    call _gfx_span
+road_asm_verge:
+    ld a,1(ix)
+    rrca
+    rrca
+    rrca
+    rrca
+    and #15
+    inc a
+    ld c,a
+    ld b,#0
+    ld hl,(_road_asm_left)
+    or a
+    sbc hl,bc
+    ld de,(_road_asm_right)
+    ex de,hl
+    add hl,bc
+    ex de,hl
+    ld a,#COL_VERGE
+    push af
+    inc sp
+    call _gfx_span
+road_asm_road:
+    ld a,2(ix)
+    and #1
+    add a,#COL_ROAD
+    push af
+    inc sp
+    ld hl,(_road_asm_left)
+    ld de,(_road_asm_right)
+    call _gfx_span
+    bit 0,2(ix)
+    jp z,road_asm_next
+    ld a,(_road_asm_i)
+    cp #37
+    jr c,road_asm_next
+    ; Gravel stripe on c - (w >> 2), width 1 + (w >> 6).
+    ld a,1(ix)
+    rrca
+    rrca
+    and #63
+    ld c,a
+    ld b,#0
+    ld hl,(_road_asm_c)
+    or a
+    sbc hl,bc
+    ld d,h
+    ld e,l
+    ld a,1(ix)
+    rlca
+    rlca
+    and #3
+    inc a
+    add a,e
+    ld e,a
+    jr nc,road_asm_gravel_left_ready
+    inc d
+road_asm_gravel_left_ready:
+    ld a,#COL_ROAD
+    push af
+    inc sp
+    call _gfx_span
+    ; Gravel stripe on c + (w >> 2), same width and original draw order.
+    ld a,1(ix)
+    rrca
+    rrca
+    and #63
+    ld c,a
+    ld b,#0
+    ld hl,(_road_asm_c)
+    add hl,bc
+    ld d,h
+    ld e,l
+    ld a,1(ix)
+    rlca
+    rlca
+    and #3
+    inc a
+    add a,e
+    ld e,a
+    jr nc,road_asm_gravel_right_ready
+    inc d
+road_asm_gravel_right_ready:
+    ld a,#COL_ROAD
+    push af
+    inc sp
+    call _gfx_span
+road_asm_next:
+    inc ix
+    inc ix
+    inc ix
+    inc iy
+    ld hl,#_road_asm_i
+    inc (hl)
+    ld a,(hl)
+    cp #COURSE_BANDS
+    jp c,road_asm_loop
+    pop iy
+    pop ix
+    ret
+    __endasm;
 }
 #include "encounters.h"
 #include "lap_clock.h"
@@ -208,7 +378,7 @@ static void build_ui(void){
     text(29,5,"KM/H");text(82,5,"TRAIL");text(216,5,"ROAD");
     text(8,16,"ARROWS / SPACE  X:BRAKE  ESC:PAUSE");
     for(i=0;i<8;++i)text(4,34+i*12,names[i]);
-    text(59,137,"MAGICAL HAPPY RALLY 0.4");
+    text(59,137,"MAGICAL HAPPY RALLY 0.5");
     text(43,150,"A LITTLE CAR. A BIG SKY.");
     text(67,163,"SPACE TO DRIVE");
     text(109,180,"PAUSE");text(82,191,"ESC TO CONTINUE");

@@ -1,0 +1,435 @@
+{
+  "scope": "Approved course shape and reprojection, camera_shift/draw_road/gfx_span pixel-preserving optimization, and version bookkeeping.",
+  "physical_hardware_tested": false,
+  "results": [
+    {
+      "name": "v0.4-baseline-files-preserved",
+      "passed": true,
+      "files": 5,
+      "changed": []
+    },
+    {
+      "name": "game-code-preserved-outside-approved-render-functions-and-version",
+      "passed": true,
+      "allowed_functions": [
+        "camera_shift",
+        "draw_road"
+      ],
+      "allowed_label": "0.4 to 0.5",
+      "preserved": "All input, speed, drift, event, clock, audio and other drawing code."
+    },
+    {
+      "name": "hardware-code-preserved-outside-approved-gfx-span",
+      "passed": true,
+      "allowed_functions": [
+        "gfx_span"
+      ]
+    },
+    {
+      "name": "v0.4-sprites-events-clock-and-old-verifiers-preserved",
+      "passed": true,
+      "files": [
+        "assets/scenery.bin",
+        "assets/vram.bin",
+        "src/assets.h",
+        "src/boot.asm",
+        "src/course.h",
+        "src/encounters.h",
+        "src/hardware.h",
+        "src/lap_clock.h",
+        "src/palette.h",
+        "src/scenery.h",
+        "tools/check_encounter_scope.py",
+        "tools/compare_scenery.py",
+        "tools/compare_speed_car.py",
+        "tools/emu.py",
+        "tools/emulator_bridge.tcl",
+        "tools/generate_assets.py",
+        "tools/verify_drive.py",
+        "tools/verify_encounters.py"
+      ],
+      "changed": []
+    },
+    {
+      "name": "build-and-launch-changes-are-version-only",
+      "passed": true,
+      "changed": []
+    },
+    {
+      "name": "512KiB-ASCII8-cartridge-valid",
+      "passed": true,
+      "bytes": 524288,
+      "sha256": "53cb766fa001831a8ed75e93aee2c7059d61ad24e24d715811e59e5369412191"
+    },
+    {
+      "name": "ROM-changes-confined-to-relinked-code-and-course",
+      "passed": true,
+      "changed_bytes": 172476,
+      "code_and_boot_byte_range": [
+        0,
+        32768
+      ],
+      "course_byte_range": [
+        98304,
+        360448
+      ]
+    },
+    {
+      "name": "approved-strong-terrain-retained-through-render-optimization",
+      "passed": true,
+      "sha256": "ccabb191e324373b24e47e15ad666fb8b9e664351946b53fb9a1bfa127a39be2",
+      "baseline_candidate_rom": "8849a4e19fb97fec44f5276026543079ec0529271141e09be6a33d8f42a58606"
+    },
+    {
+      "name": "ROM-vram-payload-matches-assets",
+      "passed": true,
+      "bytes": 65536,
+      "sha256": "9db7baf791841057df6aadbe83fa34b5505cd96fcfeccca245dc484cc02d7c97"
+    },
+    {
+      "name": "ROM-course-payload-matches-assets",
+      "passed": true,
+      "bytes": 262144,
+      "sha256": "ccabb191e324373b24e47e15ad666fb8b9e664351946b53fb9a1bfa127a39be2"
+    },
+    {
+      "name": "ROM-scenery-payload-matches-assets",
+      "passed": true,
+      "bytes": 131072,
+      "sha256": "dab4c80cc9b9d0fe35552c390d459ed357774042c1c89b5e405f29b96e4575a4"
+    },
+    {
+      "name": "course-format-and-all-eight-sections-preserved",
+      "passed": true,
+      "profiles": 1024,
+      "record_bytes": 256,
+      "road_spans": 41,
+      "scenery_slots": 8,
+      "event_anchors": 16
+    },
+    {
+      "name": "sky-source-and-ground-horizon-safe",
+      "passed": true,
+      "range": [
+        67,
+        112
+      ],
+      "sky_renderer_unchanged": true
+    },
+    {
+      "name": "outward-drift-remains-gentle",
+      "passed": true,
+      "range": [
+        -33,
+        33
+      ],
+      "maximum_drift_per_8_frames": 2
+    },
+    {
+      "name": "road-reaches-player-with-no-band-holes",
+      "passed": true,
+      "bad_phases": []
+    },
+    {
+      "name": "road-and-traffic-signed-coordinates-do-not-saturate",
+      "passed": true,
+      "saturated_road_phases": []
+    },
+    {
+      "name": "event-widths-and-near-hill-occlusion-consistent",
+      "passed": true,
+      "anchors": 16384,
+      "unchanged_depth_units": [
+        28,
+        32,
+        36,
+        42,
+        50,
+        60,
+        72,
+        86,
+        102,
+        124,
+        150,
+        184,
+        230,
+        292,
+        380,
+        512
+      ]
+    },
+    {
+      "name": "one-and-two-phase-near-road-and-loop-boundary-continuous",
+      "passed": true,
+      "limits": "Per phase: horizon <=3 px; near-road (y>=122) center/halfwidth <=12 px.",
+      "measured": [
+        {
+          "phase_step": 1,
+          "max_horizon_pixels": 1,
+          "all_rows_max_road_center_pixels": 46,
+          "all_rows_max_halfwidth_pixels": 27,
+          "near_road_max_center_pixels": 2,
+          "near_road_max_halfwidth_pixels": 9,
+          "event_max_x_pixels": 3,
+          "event_max_y_pixels": 1,
+          "event_max_clip_pixels": 1
+        },
+        {
+          "phase_step": 2,
+          "max_horizon_pixels": 2,
+          "all_rows_max_road_center_pixels": 49,
+          "all_rows_max_halfwidth_pixels": 29,
+          "near_road_max_center_pixels": 3,
+          "near_road_max_halfwidth_pixels": 11,
+          "event_max_x_pixels": 6,
+          "event_max_y_pixels": 1,
+          "event_max_clip_pixels": 1
+        }
+      ]
+    },
+    {
+      "name": "large-road-reveals-confined-to-far-crest-region",
+      "passed": true,
+      "transitions": [
+        {
+          "phase": 95,
+          "step": 1,
+          "y": 110,
+          "horizon": 112,
+          "next_horizon": 112,
+          "center_change": 46,
+          "halfwidth_change": 27
+        },
+        {
+          "phase": 104,
+          "step": 1,
+          "y": 114,
+          "horizon": 110,
+          "next_horizon": 110,
+          "center_change": 37,
+          "halfwidth_change": 26
+        },
+        {
+          "phase": 114,
+          "step": 1,
+          "y": 118,
+          "horizon": 108,
+          "next_horizon": 108,
+          "center_change": 22,
+          "halfwidth_change": 22
+        },
+        {
+          "phase": 437,
+          "step": 1,
+          "y": 110,
+          "horizon": 112,
+          "next_horizon": 112,
+          "center_change": 39,
+          "halfwidth_change": 23
+        },
+        {
+          "phase": 446,
+          "step": 1,
+          "y": 114,
+          "horizon": 110,
+          "next_horizon": 110,
+          "center_change": 33,
+          "halfwidth_change": 24
+        },
+        {
+          "phase": 456,
+          "step": 1,
+          "y": 118,
+          "horizon": 108,
+          "next_horizon": 108,
+          "center_change": 19,
+          "halfwidth_change": 19
+        },
+        {
+          "phase": 778,
+          "step": 1,
+          "y": 110,
+          "horizon": 112,
+          "next_horizon": 112,
+          "center_change": 38,
+          "halfwidth_change": 25
+        },
+        {
+          "phase": 787,
+          "step": 1,
+          "y": 114,
+          "horizon": 110,
+          "next_horizon": 110,
+          "center_change": 30,
+          "halfwidth_change": 25
+        },
+        {
+          "phase": 797,
+          "step": 1,
+          "y": 118,
+          "horizon": 108,
+          "next_horizon": 108,
+          "center_change": 17,
+          "halfwidth_change": 21
+        },
+        {
+          "phase": 94,
+          "step": 2,
+          "y": 110,
+          "horizon": 111,
+          "next_horizon": 112,
+          "center_change": 49,
+          "halfwidth_change": 29
+        },
+        {
+          "phase": 95,
+          "step": 2,
+          "y": 110,
+          "horizon": 112,
+          "next_horizon": 112,
+          "center_change": 45,
+          "halfwidth_change": 27
+        },
+        {
+          "phase": 103,
+          "step": 2,
+          "y": 114,
+          "horizon": 111,
+          "next_horizon": 110,
+          "center_change": 39,
+          "halfwidth_change": 29
+        },
+        {
+          "phase": 104,
+          "step": 2,
+          "y": 114,
+          "horizon": 110,
+          "next_horizon": 110,
+          "center_change": 35,
+          "halfwidth_change": 26
+        },
+        {
+          "phase": 113,
+          "step": 2,
+          "y": 118,
+          "horizon": 108,
+          "next_horizon": 108,
+          "center_change": 24,
+          "halfwidth_change": 25
+        },
+        {
+          "phase": 436,
+          "step": 2,
+          "y": 110,
+          "horizon": 112,
+          "next_horizon": 112,
+          "center_change": 46,
+          "halfwidth_change": 28
+        },
+        {
+          "phase": 437,
+          "step": 2,
+          "y": 110,
+          "horizon": 112,
+          "next_horizon": 112,
+          "center_change": 37,
+          "halfwidth_change": 23
+        },
+        {
+          "phase": 445,
+          "step": 2,
+          "y": 114,
+          "horizon": 110,
+          "next_horizon": 110,
+          "center_change": 36,
+          "halfwidth_change": 27
+        },
+        {
+          "phase": 446,
+          "step": 2,
+          "y": 114,
+          "horizon": 110,
+          "next_horizon": 110,
+          "center_change": 31,
+          "halfwidth_change": 24
+        },
+        {
+          "phase": 777,
+          "step": 2,
+          "y": 110,
+          "horizon": 111,
+          "next_horizon": 112,
+          "center_change": 42,
+          "halfwidth_change": 29
+        },
+        {
+          "phase": 778,
+          "step": 2,
+          "y": 110,
+          "horizon": 112,
+          "next_horizon": 112,
+          "center_change": 36,
+          "halfwidth_change": 25
+        },
+        {
+          "phase": 786,
+          "step": 2,
+          "y": 114,
+          "horizon": 110,
+          "next_horizon": 110,
+          "center_change": 33,
+          "halfwidth_change": 28
+        },
+        {
+          "phase": 787,
+          "step": 2,
+          "y": 114,
+          "horizon": 110,
+          "next_horizon": 110,
+          "center_change": 28,
+          "halfwidth_change": 25
+        }
+      ],
+      "note": "Near-to-far intersection switches world branches as a crest uncovers the farther road; native crest sequence is reviewed separately."
+    },
+    {
+      "name": "traffic-anchors-continuous-through-hills-and-loop",
+      "passed": true,
+      "measured": [
+        {
+          "phase_step": 1,
+          "max_horizon_pixels": 1,
+          "all_rows_max_road_center_pixels": 46,
+          "all_rows_max_halfwidth_pixels": 27,
+          "near_road_max_center_pixels": 2,
+          "near_road_max_halfwidth_pixels": 9,
+          "event_max_x_pixels": 3,
+          "event_max_y_pixels": 1,
+          "event_max_clip_pixels": 1
+        },
+        {
+          "phase_step": 2,
+          "max_horizon_pixels": 2,
+          "all_rows_max_road_center_pixels": 49,
+          "all_rows_max_halfwidth_pixels": 29,
+          "near_road_max_center_pixels": 3,
+          "near_road_max_halfwidth_pixels": 11,
+          "event_max_x_pixels": 6,
+          "event_max_y_pixels": 1,
+          "event_max_clip_pixels": 1
+        }
+      ]
+    },
+    {
+      "name": "visible-midground-bends-stronger-than-v0.4",
+      "passed": true,
+      "old_max_center_spread_pixels": 5,
+      "new_max_center_spread_pixels": 52,
+      "sample_bands": [
+        24,
+        33
+      ]
+    }
+  ],
+  "passed": true
+}

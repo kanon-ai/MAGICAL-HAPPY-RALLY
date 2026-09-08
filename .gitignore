@@ -8,3 +8,11 @@ __pycache__/
 /systemroms/
 /outputs/v0.4/screenshots/native-*.png
 /outputs/v0.4/*-verification.json
+/outputs/v0.5/screenshots/native-*.png
+/outputs/v0.5/screenshots/scenic-*.png
+/outputs/v0.5/all-*-verification*.json
+/outputs/v0.5/performance-*-verification*.json
+/outputs/v0.5/scenic-*-verification*.json
+/outputs/v0.5/crest-*-verification*.json
+/outputs/v0.5/crest-verification.json
+/outputs/v0.5/performance-verification.json

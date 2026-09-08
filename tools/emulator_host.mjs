@@ -16,8 +16,8 @@ if (!Number.isInteger(port) || port < 1024 || port > 65535) throw new Error('OPE
 const extra = process.argv.slice(2);
 if (!existsSync(executable)) throw new Error('Set OPENMSX_EXE to your existing openmsx.exe.');
 if (!extra.length) {
-  const rom = join(root, 'outputs', 'MAGICAL_HAPPY_RALLY-v0.4.rom');
-  if (!existsSync(rom)) throw new Error('Build MAGICAL_HAPPY_RALLY-v0.4.rom with BUILD.cmd first.');
+  const rom = join(root, 'outputs', 'MAGICAL_HAPPY_RALLY-v0.5.rom');
+  if (!existsSync(rom)) throw new Error('Build MAGICAL_HAPPY_RALLY-v0.5.rom with BUILD.cmd first.');
   extra.push('-cart', rom, '-romtype', 'ASCII8');
 }
 mkdirSync(work, {recursive: true});

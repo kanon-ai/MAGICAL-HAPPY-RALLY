@@ -4,6 +4,9 @@
 and paints spans with the V9990 command engine. Height visibility is solved
 near-to-far, so a crest correctly hides road and objects behind it.
 Each sample holds 128 road bytes, 64 scenery bytes and 64 event-anchor bytes.
+Terrain study v0.5: only this independent copy changes the route geometry.
+Vehicles, event rules, rendering code, sprite assets and record layout remain
+the v0.4 foundation; roadside and event anchors are reprojected onto the route.
 """
 from pathlib import Path
 import math
@@ -28,7 +31,7 @@ EVENT_PROJECT_OFFSET = 192
 EVENT_DEPTHS = [28,32,36,42,50,60,72,86,102,124,150,184,230,292,380,512]
 
 def scenery_at(index):
-    """Route-anchored scenery only; road geometry and vehicle rules are fixed.
+    """Preserved v0.4 world placements, reprojected onto the new terrain.
 
     Sparse meadow / enclosing firs / rock cut / open crest / valley / firs /
     lakeside crags / open homeward trail. No runtime scene-load or teleport.
@@ -63,14 +66,31 @@ def object_dimensions(kind,size):
 
 def height(z):
     t = z * math.tau / LENGTH
-    return 2600 * math.sin(t - .7) + 800 * math.sin(2*t + .3)
+    # Three smoothly joined passes per loop. The first crest is near
+    # phase 129 / distance 516, with a readable descent immediately after.
+    return 1500 * math.sin(3*t - .8)
 
 def center(z):
     t = z * math.tau / LENGTH
-    return 5200 * math.sin(t) + 1600 * math.sin(2*t - .5)
+    # Shorter waves bend the middle distance, not just the far horizon.
+    # The smaller sixth harmonic tightens and releases each S without
+    # a spline join, while the broad wave varies the three route passes.
+    return (3600 * math.sin(3*t - 1.1) + 700 * math.sin(6*t - 2.0)
+            + 1000 * math.sin(t - .5))
 
 def slope(fun, z):
     return (fun(z + 1) - fun(z - 1)) / 2
+
+def camera_pitch(z):
+    # Follow an ascent less than a descent, with a smooth transition at
+    # the crest. This is an offline camera projection only. Crucially, it
+    # keeps the actual road horizon within 64..112: the unchanged sky
+    # renderer would sample before its atlas if the horizon exceeded 112.
+    # Altering pitch for every road/object projection avoids a gap that
+    # clamping only the horizon metadata would introduce.
+    grade = slope(height,z)
+    follow = (.30+.58)/2 + (.30-.58)/2 * math.tanh(grade*12)
+    return grade * follow
 
 def event_projection(z, camera_y, tangent_x, pitch, points, distance):
     """Road-relative event anchor with the same near-hill mask as scenery.
@@ -84,6 +104,7 @@ def event_projection(z, camera_y, tangent_x, pitch, points, distance):
     x = FOCAL * (center(world_z) - center(z) - tangent_x*depth) / depth
     y = HORIZON + FOCAL*(camera_y-height(world_z)+pitch*depth)/depth
     width = FOCAL*ROAD_WIDTH/depth
+    assert -127 < x < 127, 'Event anchor would saturate its signed-byte x'
     front = [p[1] for p in points if p[3] < world_z]
     clip = min(186, round(min(front))) if front else 186
     return (max(-127,min(127,round(x))) & 255,
@@ -95,15 +116,16 @@ def make_profile(phase):
     z = phase * LENGTH / COUNT
     camera_y = height(z) + CAMERA_HEIGHT
     tangent_x = slope(center, z)
-    # Partial pitch following lets climbs fill the view and descents open it.
-    pitch = slope(height, z) * .58
+    pitch = camera_pitch(z)
     points = []
     for depth in range(650, 24801, 150):
         world_z = z + depth
         x = FOCAL * (center(world_z) - center(z) - tangent_x*depth) / depth
         y = HORIZON + FOCAL*(camera_y-height(world_z)+pitch*depth)/depth
         points.append((x, y, FOCAL*ROAD_WIDTH/depth, world_z))
-    horizon = max(64, min(126, round(min(p[1] for p in points))))
+    actual_horizon = min(p[1] for p in points)
+    assert 64 <= actual_horizon <= 112, 'Actual horizon exceeds unchanged sky renderer safety'
+    horizon = round(actual_horizon)
     data = []
     for top, rows in zip(BANDS, HEIGHTS):
         sample_y = top + rows/2
@@ -117,13 +139,18 @@ def make_profile(phase):
             data.extend((0, 0, 0))
         else:
             x, _, width, world_z = hit
+            assert -127 < x < 127, 'Visible road would saturate its signed-byte x'
             # Ground bands and gravel dashes advance by distance, not time.
             color = int(world_z / 800) & 1
             depth_bucket = max(0, min(5, round((width-8)/30)))
             data.extend((max(-127,min(127,round(x))) & 255,
                          max(1,min(250,round(width))),
                          color | (depth_bucket << 1)))
-    curvature = max(-100,min(100, round((slope(center,z+1800)-tangent_x)*450)))
+    # The route now turns more sharply on screen, but preserve the old
+    # roughly +/-33 steering-drift envelope. The original storage permits
+    # +/-100; using that full range would multiply the outward drift in
+    # unchanged game.c and undermine the relaxed driving brief.
+    curvature = max(-33,min(33, round((slope(center,z+1800)-tangent_x)*450)))
     grade = max(-100,min(100,round(slope(height,z)*220)))
     # Eight softly changing route sectors; no scenery load between them.
     section = (phase % COUNT) // 128
@@ -164,8 +191,8 @@ def make_profile(phase):
     objects.reverse()  # painter order, far-to-near
     for _,x,y,size,kind,clip,width in objects:
         data.extend((x&255,(x>>8)&255,y&255,(y>>8)&255,size,kind,clip,width))
-    # Preserve the existing eight scenery slots exactly. The previously
-    # unused final 64 bytes now describe independent moving-event anchors.
+    # Preserve eight scenery slots and sixteen event anchors, reprojected
+    # together with the road. Record sizes and bank boundaries do not move.
     assert len(data) <= EVENT_PROJECT_OFFSET
     data.extend([0]*(EVENT_PROJECT_OFFSET-len(data)))
     for distance in EVENT_DEPTHS:
@@ -200,26 +227,35 @@ def main():
               'signed_curve_range':[min(int.from_bytes(f[124:125],signed=True) for f in frames),max(int.from_bytes(f[124:125],signed=True) for f in frames)],
               'method':'Height-aware near-to-far road intersections, 41 variable-height spans',
               'validation':'Generated geometry only, not native runtime performance'}
-    baseline=ROOT/'outputs/baseline-v0.1/source-v0.1.zip'
-    if baseline.exists():
-        import zipfile
-        with zipfile.ZipFile(baseline) as archive:
-            old=archive.read('assets/course.bin')
+    # This isolated terrain study explicitly authorizes road changes;
+    # v0.1/v0.3 byte-identity assertions belong to their original builds,
+    # not this experiment. Preserve the v0.4 format, sectors, depth scales,
+    # and art assets instead. Full runtime scope is checked separately by
+    # check_terrain_scope.py; older checkers are intentionally untouched.
+    baseline=ROOT/'outputs/baseline-v0.4/source-v0.4.zip'
+    assert baseline.exists(), 'Preserve the v0.4 baseline before terrain generation'
+    import zipfile
+    with zipfile.ZipFile(baseline) as archive:
+        old=archive.read('assets/course.bin')
         assert len(old)==len(raw)
-        assert all(raw[i:i+128]==old[i:i+128] for i in range(0,len(raw),256)), 'Road or handling metadata changed'
-        report['road_and_handling_metadata_identical_to_v01']=True
-    baseline=ROOT/'outputs/baseline-v0.3/source-v0.3.zip'
-    if baseline.exists():
-        import zipfile
-        with zipfile.ZipFile(baseline) as archive:
-            old=archive.read('assets/course.bin')
-        assert len(old)==len(raw)
-        assert all(raw[i:i+EVENT_PROJECT_OFFSET]==old[i:i+EVENT_PROJECT_OFFSET]
-                   for i in range(0,len(raw),256)), 'Existing road, handling or scenery changed'
-        assert all(not any(old[i+EVENT_PROJECT_OFFSET:i+256])
-                   for i in range(0,len(old),256)), 'Event projection space was not unused'
-        report['road_handling_and_scenery_identical_to_v03']=True
-        report['event_projection_uses_previously_zero_padding']=True
+        assert archive.read('src/course.h')==(ROOT/'src/course.h').read_bytes(), 'Course layout changed'
+        preserved_art=['assets/vram.bin','assets/scenery.bin','src/assets.h',
+                       'src/scenery.h','src/palette.h']
+        for name in preserved_art:
+            assert archive.read(name)==(ROOT/name).read_bytes(), f'Art changed: {name}'
+    assert all(raw[i+126]==old[i+126] for i in range(0,len(raw),256)), 'Route sectors changed'
+    assert all(raw[i+192+4*n+2]==old[i+192+4*n+2]
+               for i in range(0,len(raw),256) for n in range(16)), 'Traffic projection depths changed'
+    report['terrain_scope']={
+        'baseline':'v0.4','authorized_change':'Road shape and matching scenery/event reprojection only',
+        'layout_and_sector_ids_preserved':True,'event_depth_scales_preserved':True,
+        'art_files_byte_identical':preserved_art,'runtime_scope_checker':'tools/check_terrain_scope.py',
+        'road_and_metadata_changed_bytes':sum(a!=b for i in range(0,len(raw),256) for a,b in zip(raw[i:i+128],old[i:i+128])),
+        'scenery_changed_bytes':sum(a!=b for i in range(0,len(raw),256) for a,b in zip(raw[i+128:i+192],old[i+128:i+192])),
+        'event_projection_changed_bytes':sum(a!=b for i in range(0,len(raw),256) for a,b in zip(raw[i+192:i+256],old[i+192:i+256])),
+        'outward_drift_metadata_cap':33,'actual_horizon_safe_without_metadata_clamping':True,
+        'signed_x_saturation':False,
+        'opening_showcase_phase_samples':[0,48,96,144,224,300]}
     projections=[f[at:at+4] for f in frames for at in range(EVENT_PROJECT_OFFSET,256,4)]
     assert len(EVENT_DEPTHS)*4 == 256-EVENT_PROJECT_OFFSET
     assert EVENT_DEPTHS == sorted(set(EVENT_DEPTHS))
